@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Eye, EyeOff, User, Mail, Lock, ChevronRight } from "lucide-react";
 
-const Page = () => {
+const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -154,4 +154,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default SignupPage;
