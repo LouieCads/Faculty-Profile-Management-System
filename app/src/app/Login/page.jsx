@@ -1,9 +1,18 @@
-// Login
 "use client";
 import React, { useState } from "react";
+import { ConnectButton } from "@rainbow-me/rainbowkit"
+import {
+  useAccount,
+  useWriteContract,
+  useChainId,
+  useReadContract,
+  useWatchContractEvent,
+} from "wagmi"
 import { Eye, EyeOff, Mail, Lock, ChevronRight, Wallet } from "lucide-react";
+import Link from "next/link";
 
 const LoginPage = () => {
+  const { isConnected } = useAccount()
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -95,21 +104,37 @@ const LoginPage = () => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-center w-full">
-              <h3 className="text-gray-600">Connect your wallet to log in</h3>
-            </div>
-            <div>
-              <button
-                type="submit"
-                className="w-full py-3 px-4 bg-[#464646] hover:bg-[#000000] text-white font-semibold rounded-lg transition duration-300 flex items-center justify-center group"
-              >
-                Connect Wallet
-                <Wallet
-                  size={20}
-                  className="ml-2 group-hover:translate-x-1 transition-transform duration-300"
-                />
-              </button>
-            </div>
+            {isConnected ? (
+              <Link href="/Faculty-Homepage">
+                <button className="w-full py-3 px-4 bg-[#63a02b] hover:bg-[#125E20] text-white font-semibold rounded-lg transition duration-300 flex items-center justify-center group">
+                  Go to Dashboard
+                  <ChevronRight
+                    size={20}
+                    className="ml-2 group-hover:translate-x-1 transition-transform duration-300"
+                  />
+                </button>
+              </Link>
+            ) : (
+              <>
+                <div className="flex items-center justify-center w-full mb-3">
+                  <h3 className="text-gray-600">Connect your wallet to log in</h3>
+                </div>
+                <ConnectButton.Custom>
+                  {({ openConnectModal }) => (
+                    <button
+                      onClick={openConnectModal}
+                      className="w-full py-3 px-4 bg-[#464646] hover:bg-[#000000] text-white font-semibold rounded-lg transition duration-300 flex items-center justify-center group"
+                    >
+                      Connect Wallet
+                      <Wallet
+                        size={20}
+                        className="ml-2 group-hover:translate-x-1 transition-transform duration-300"
+                      />
+                    </button>
+                  )}
+                </ConnectButton.Custom>
+              </>
+            )}
           </div>
         </div>
 

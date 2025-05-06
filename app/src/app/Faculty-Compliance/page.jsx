@@ -103,7 +103,7 @@ const FacultyForm = () => {
           <div className="flex whitespace-nowrap">
             {tabs.map((tab) => (
               <button
-                key={tab.id}
+                key={tab.id} 
                 className={`px-4 py-3 text-sm font-medium transition-all ${
                   activeTab === tab.id
                     ? "text-green-800 border-b-2 border-green-800"
