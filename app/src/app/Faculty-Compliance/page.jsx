@@ -121,13 +121,13 @@ const tabs = [
         </div>
 
         {/* Tab Navigation */}
-        <div className="overflow-x-auto bg-white border-b min-w-full">
+        <div className="overflow-x-auto bg-white border-b">
           <div className="flex whitespace-nowrap">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2 ${
+                className={`flex items-center gap-[1.3rem] px-4 py-2 ${
                   activeTab === tab.id
                     ? "bg-green-600 text-white"
                     : "bg-gray-100 text-gray-700"
