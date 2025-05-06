@@ -2,16 +2,25 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import "./facultyCompliance.css";
+import TeachingAssignments from "./TeachingAssignments";
+import LicensesAndCertifications from "./LicensesAndCertifications";
+import ResearchOutputs from "./ResearchOutputs";
 import {
-  House,
+  User,
+  BookOpen,
+  Briefcase,
+  BadgeCheck,
+  ClipboardList,
   File,
+  House,
   ChartColumnBig,
   Cog,
   FileText,
   BarChart2,
   Settings,
 } from "lucide-react";
+
+import "./facultyCompliance.css";
 
 const FacultyForm = () => {
   const [activeTab, setActiveTab] = useState("personal");
@@ -33,15 +42,28 @@ const FacultyForm = () => {
     pagIbigNo: "Dela Cruz",
   });
 
-  const tabs = [
-    { id: "personal", label: "Personal Information" },
-    { id: "educational", label: "Educational Background" },
-    { id: "experiences", label: "Experiences" },
-    { id: "licenses", label: "Licenses and Certifications" },
-    { id: "teaching", label: "Teaching Assignments" },
-    { id: "research", label: "Research Outputs" },
-    { id: "documents", label: "Documents" },
-  ];
+const tabs = [
+  { id: "personal", label: "Personal Information", icon: <User size={18} /> },
+  {
+    id: "educational",
+    label: "Educational Background",
+    icon: <BookOpen size={18} />,
+  },
+  { id: "experiences", label: "Experiences", icon: <Briefcase size={18} /> },
+  {
+    id: "licenses",
+    label: "Licenses and Certifications",
+    icon: <BadgeCheck size={18} />,
+  },
+  {
+    id: "teaching",
+    label: "Teaching Assignments",
+    icon: <ClipboardList size={18} />,
+  },
+  { id: "research", label: "Research Outputs", icon: <FileText size={18} /> },
+  { id: "documents", label: "Documents", icon: <File size={18} /> },
+];
+
 
   const handleTabChange = (tabId) => {
     setActiveTab(tabId);
@@ -104,14 +126,15 @@ const FacultyForm = () => {
             {tabs.map((tab) => (
               <button
                 key={tab.id}
-                className={`px-4 py-3 text-sm font-medium transition-all ${
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-2 px-4 py-2 rounded ${
                   activeTab === tab.id
-                    ? "text-green-800 border-b-2 border-green-800"
-                    : "text-gray-500 hover:text-green-700"
+                    ? "bg-green-600 text-white"
+                    : "bg-gray-100 text-gray-700"
                 }`}
-                onClick={() => handleTabChange(tab.id)}
               >
-                {tab.label}
+                {tab.icon}
+                <span>{tab.label}</span>
               </button>
             ))}
           </div>
@@ -315,7 +338,7 @@ const FacultyForm = () => {
                       name="pagIbigNo"
                       value={formData.pagIbigNo}
                       onChange={handleChange}
-                      className="w-full border focus:text-black border-gray-300 focus:outline-none focus:ring-1 focus:ring-green-500 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                      className="w-full border focus:text-black border-gray-300 focus:outline-none focus:ring-1 focus:ring-green-500 rounded-md px-3 py-2"
                     />
                   </div>
                 </div>
@@ -586,38 +609,9 @@ const FacultyForm = () => {
               </div>
             )}
 
-            {activeTab === "licenses" && (
-              <div>
-                <h2 className="text-xl font-semibold text-green-800 mb-6">
-                  Licenses and Certifications
-                </h2>
-                <p className="text-gray-600">
-                  Licenses and certifications form content will appear here.
-                </p>
-              </div>
-            )}
-
-            {activeTab === "teaching" && (
-              <div>
-                <h2 className="text-xl font-semibold text-green-800 mb-6">
-                  Teaching Assignments
-                </h2>
-                <p className="text-gray-600">
-                  Teaching assignments form content will appear here.
-                </p>
-              </div>
-            )}
-
-            {activeTab === "research" && (
-              <div>
-                <h2 className="text-xl font-semibold text-green-800 mb-6">
-                  Research Outputs
-                </h2>
-                <p className="text-gray-600">
-                  Research outputs form content will appear here.
-                </p>
-              </div>
-            )}
+            {activeTab === "licenses" && <LicensesAndCertifications />}
+            {activeTab === "teaching" && <TeachingAssignments />}
+            {activeTab === "research" && <ResearchOutputs />}
 
             {activeTab === "documents" && (
               <div>
