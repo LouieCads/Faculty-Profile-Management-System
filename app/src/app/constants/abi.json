@@ -1,0 +1,1171 @@
+[
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "deployerAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "facultyAddress",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "AccessControlBadConfirmation",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "neededRole",
+          "type": "bytes32"
+        }
+      ],
+      "name": "AccessControlUnauthorizedAccount",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "faculty",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "admin",
+          "type": "address"
+        }
+      ],
+      "name": "PersonalInfoApproved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "faculty",
+          "type": "address"
+        }
+      ],
+      "name": "PersonalInfoSubmitted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "previousAdminRole",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "newAdminRole",
+          "type": "bytes32"
+        }
+      ],
+      "name": "RoleAdminChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        }
+      ],
+      "name": "RoleGranted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sender",
+          "type": "address"
+        }
+      ],
+      "name": "RoleRevoked",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "ADMIN",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "DEFAULT_ADMIN_ROLE",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "FACULTY_MEMBER",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_faculty",
+          "type": "address"
+        }
+      ],
+      "name": "approvePersonalInfo",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "educationalBackground",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "elementarySchoolName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "elementaryDateGraduated",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "elementarySchoolAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "highschoolSchoolName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "highschoolDateGraduated",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "highschoolSchoolAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "collegeSchoolName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "collegeDateGraduated",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "collegeSchoolAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "isApproved",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "facultyAddress",
+          "type": "address"
+        }
+      ],
+      "name": "getEducationalBackground",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "elementarySchoolName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "elementaryDateGraduated",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "elementarySchoolAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "highschoolSchoolName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "highschoolDateGraduated",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "highschoolSchoolAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "collegeSchoolName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "collegeDateGraduated",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "collegeSchoolAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "isApproved",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "facultyAddress",
+          "type": "address"
+        }
+      ],
+      "name": "getLicensesAndCertifications",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "profession",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "dateAchieved",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "licensesAndCertificationsIpfsHash",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "isApproved",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "facultyAddress",
+          "type": "address"
+        }
+      ],
+      "name": "getPersonalInfo",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "firstName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "middleName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "lastName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "suffix",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "birthday",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "civilStatus",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "homeAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "isApproved",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "facultyAddress",
+          "type": "address"
+        }
+      ],
+      "name": "getResearchOutputs",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "researchTitle",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "researchOutputsIpfsHash",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "datePublished",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "isApproved",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getRoleAdmin",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "facultyAddress",
+          "type": "address"
+        }
+      ],
+      "name": "getSupportingDocuments",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "diplomaIpfsHash",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "serviceRecordsIpfsHash",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "certificatesIpfsHash",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "isApproved",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "facultyAddress",
+          "type": "address"
+        }
+      ],
+      "name": "getTeachingAssignments",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "elementarySchoolName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "elementaryDateGraduate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "elementarySchoolAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "isApproved",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "facultyAddress",
+          "type": "address"
+        }
+      ],
+      "name": "getWorkExperience",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "companyName",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "yearsServed",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "position",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "isApproved",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "grantRole",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "hasRole",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "licensesAndCertifications",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "profession",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "dateAchieved",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "licensesAndCertificationsIpfsHash",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "isApproved",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "personalInfo",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "firstName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "middleName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "lastName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "suffix",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "birthday",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "civilStatus",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "homeAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "isApproved",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "callerConfirmation",
+          "type": "address"
+        }
+      ],
+      "name": "renounceRole",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "researchOutputs",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "researchTitle",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "researchOutputsIpfsHash",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "datePublished",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "isApproved",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "role",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "revokeRole",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_elementarySchoolName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_elementaryDateGraduated",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_elementarySchoolAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_highschoolSchoolName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_highschoolDateGraduated",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_highschoolSchoolAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_collegeSchoolName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_collegeDateGraduated",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_collegeSchoolAddress",
+          "type": "string"
+        }
+      ],
+      "name": "submitEducationalBackground",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_profession",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_dateAchieved",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_licensesAndCertificationsIpfsHash",
+          "type": "string"
+        }
+      ],
+      "name": "submitLicensesAndCertifications",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_firstName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_middleName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_lastName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_suffix",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_birthday",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_civilStatus",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_homeAddress",
+          "type": "string"
+        }
+      ],
+      "name": "submitPersonalInfo",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_researchTitle",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_researchOutputsIpfsHash",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_datePublished",
+          "type": "uint256"
+        }
+      ],
+      "name": "submitResearchOutputs",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_diplomaIpfsHash",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_serviceRecordsIpfsHash",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_certificatesIpfsHash",
+          "type": "string"
+        }
+      ],
+      "name": "submitSupportingDocuments",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_elementarySchoolName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_elementaryDateGraduate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_elementarySchoolAddress",
+          "type": "string"
+        }
+      ],
+      "name": "submitTeachingAssignments",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_companyName",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_yearsServed",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_position",
+          "type": "string"
+        }
+      ],
+      "name": "submitWorkExperience",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "supportingDocuments",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "diplomaIpfsHash",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "serviceRecordsIpfsHash",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "certificatesIpfsHash",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "isApproved",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4",
+          "name": "interfaceId",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "teachingAssignments",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "elementarySchoolName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "elementaryDateGraduate",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "elementarySchoolAddress",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "isApproved",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "workExperience",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "companyName",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "yearsServed",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "position",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "isApproved",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]

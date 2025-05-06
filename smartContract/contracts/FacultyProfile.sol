@@ -19,22 +19,19 @@ contract FacultyProfile is AccessControl {
         string birthday;
         string civilStatus;
         string homeAddress;
-        uint256 contactNum;
-        string email;
-        string telephoneNum;
         bool isApproved; // Approval status
         bool exists; // Track if profile exists
     }
     struct EducationalBackground {
         // string did; // Decentralized Identifier (e.g., did:ethr:0x123...)
         string elementarySchoolName;
-        uint256 elementaryDateGraduated;
+        string elementaryDateGraduated;
         string elementarySchoolAddress;
         string highschoolSchoolName;
-        uint256 highschoolDateGraduated;
+        string highschoolDateGraduated;
         string highschoolSchoolAddress;
         string collegeSchoolName;
-        uint256 collegeDateGraduated;
+        string collegeDateGraduated;
         string collegeSchoolAddress;
         bool isApproved; // Approval status
         bool exists; // Track if profile exists
@@ -106,11 +103,8 @@ contract FacultyProfile is AccessControl {
         string memory _suffix,
         string memory _birthday,
         string memory _civilStatus,
-        string memory _homeAddress,
-        uint256 _contactNum,
-        string memory _email,
-        string memory _telephoneNum
-    ) public onlyRole(FACULTY_MEMBER) {
+        string memory _homeAddress
+    ) public onlyRole(FACULTY_MEMBER)  {
         require(
             !personalInfo[msg.sender].exists,
             "Personal Information already submitted"
@@ -124,9 +118,6 @@ contract FacultyProfile is AccessControl {
             _birthday,
             _civilStatus,
             _homeAddress,
-            _contactNum,
-            _email,
-            _telephoneNum,
             false, // Not approved initially
             true // Profile exists
         );
@@ -136,13 +127,13 @@ contract FacultyProfile is AccessControl {
 
     function submitEducationalBackground(
         string memory _elementarySchoolName,
-        uint256 _elementaryDateGraduated,
+        string memory _elementaryDateGraduated,
         string memory _elementarySchoolAddress,
         string memory _highschoolSchoolName,
-        uint256 _highschoolDateGraduated,
+        string memory _highschoolDateGraduated,
         string memory _highschoolSchoolAddress,
         string memory _collegeSchoolName,
-        uint256 _collegeDateGraduated,
+        string memory _collegeDateGraduated,
         string memory _collegeSchoolAddress
     ) public onlyRole(FACULTY_MEMBER) {
         require(
@@ -284,9 +275,6 @@ contract FacultyProfile is AccessControl {
             string memory birthday,
             string memory civilStatus,
             string memory homeAddress,
-            uint256 contactNum,
-            string memory email,
-            string memory telephoneNum,
             bool isApproved,
             bool exists
         )
@@ -302,9 +290,6 @@ contract FacultyProfile is AccessControl {
             profile.birthday,
             profile.civilStatus,
             profile.homeAddress,
-            profile.contactNum,
-            profile.email,
-            profile.telephoneNum,
             profile.isApproved,
             profile.exists
         );
@@ -317,13 +302,13 @@ contract FacultyProfile is AccessControl {
         view
         returns (
             string memory elementarySchoolName,
-            uint256 elementaryDateGraduated,
+            string memory elementaryDateGraduated,
             string memory elementarySchoolAddress,
             string memory highschoolSchoolName,
-            uint256 highschoolDateGraduated,
+            string memory highschoolDateGraduated,
             string memory highschoolSchoolAddress,
             string memory collegeSchoolName,
-            uint256 collegeDateGraduated,
+            string memory collegeDateGraduated,
             string memory collegeSchoolAddress,
             bool isApproved,
             bool exists

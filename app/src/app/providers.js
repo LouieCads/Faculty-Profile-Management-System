@@ -51,8 +51,8 @@ export function App({ children }) {
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider
           modalSize="compact"
-          theme={midnightTheme({
-            accentColor: "#7b3fe4",
+          theme={lightTheme({
+            accentColor: "#125e20",
             accentColorForeground: "white",
             borderRadius: "medium",
           })}
