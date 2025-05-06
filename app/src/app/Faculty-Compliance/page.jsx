@@ -52,7 +52,7 @@ const tabs = [
   { id: "experiences", label: "Experiences", icon: <Briefcase size={18} /> },
   {
     id: "licenses",
-    label: "Licenses and Certifications",
+    label: "Credentials",
     icon: <BadgeCheck size={18} />,
   },
   {
@@ -121,13 +121,13 @@ const tabs = [
         </div>
 
         {/* Tab Navigation */}
-        <div className="overflow-x-auto bg-white border-b">
+        <div className="overflow-x-auto bg-white border-b min-w-full">
           <div className="flex whitespace-nowrap">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded ${
+                className={`flex items-center gap-2 px-4 py-2 ${
                   activeTab === tab.id
                     ? "bg-green-600 text-white"
                     : "bg-gray-100 text-gray-700"
@@ -289,7 +289,7 @@ const tabs = [
                   </div>
                 </div>
 
-                <h2 className="text-xl font-bold text-green-800 mt-8 mb-6 border-b pb-2  flex justify-center">
+                {/* <h2 className="text-xl font-bold text-green-800 mt-8 mb-6 border-b pb-2  flex justify-center">
                   Other Information
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -341,7 +341,7 @@ const tabs = [
                       className="w-full border focus:text-black border-gray-300 focus:outline-none focus:ring-1 focus:ring-green-500 rounded-md px-3 py-2"
                     />
                   </div>
-                </div>
+                </div> */}
 
                 <div className="mt-8 flex justify-center">
                   <button
