@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { House, UserRound, ListCheck, Cog, X, Clock, Check, Bell } from 'lucide-react';
 import "./adminHomepage.css";
 
-const FacultyHomePage = () => {
+const AdminHomePage = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   
   const recentSubmissions = [
@@ -38,7 +38,6 @@ const FacultyHomePage = () => {
 
   return (
     <div className="flex h-screen">
-      {/* Blur overlay when notifications are shown */}
       {showNotifications && (
         <div 
           className="fixed inset-0 bg-opacity-30 z-10"
@@ -46,7 +45,6 @@ const FacultyHomePage = () => {
         ></div>
       )}
       
-      {/* Sidebar */}
       <div className="leftContainer">
         <div className="sideBar">
           <img src="./Images/CCIS.png" alt="" className="logo" />
@@ -55,13 +53,11 @@ const FacultyHomePage = () => {
               <House color="#ffffff" strokeWidth={2} />
             </div>
           </Link>
-
           <Link href="/Account-Management">
             <div className="complianceIcon">
               <UserRound color="#ffffff" strokeWidth={2} />
             </div>
           </Link>
-
           <div className="analyticsIcon">
             <ListCheck color="#ffffff" strokeWidth={2} />
           </div>
@@ -71,15 +67,13 @@ const FacultyHomePage = () => {
         </div>
       </div>
       
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col">
-        {/* Navbar */}
-        <div className="h-16 border-b px-6 flex items-center justify-between">
+      <div className="flex-1 flex flex-col bg-gray-100">
+        <div className="h-16 border-b px-6 flex items-center justify-between bg-white shadow-sm">
           <div className="flex items-center">
             <div className="relative w-64">
-              <input 
-                type="text" 
-                placeholder="Search..." 
+              <input
+                type="text"
+                placeholder="Search..."
                 className="text-green-800 pl-10 pr-4 py-2 border rounded-md w-full focus:outline-none focus:ring-1 focus:ring-green-800"
               />
               <div className="absolute left-3 top-2.5">
@@ -89,8 +83,8 @@ const FacultyHomePage = () => {
               </div>
             </div>
           </div>
+
           <div className="flex items-center space-x-4">
-            {/* Notification Button */}
             <div className="relative">
               <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></div>
               <button 
@@ -99,8 +93,6 @@ const FacultyHomePage = () => {
               >
                 <Bell size={22} />
               </button>
-              
-              {/* Notification Popup */}
               {showNotifications && (
                 <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg z-20 border border-gray-200">
                   <div className="p-3 border-b border-gray-200 flex justify-between items-center">
@@ -134,9 +126,7 @@ const FacultyHomePage = () => {
                         ))}
                       </div>
                     ) : (
-                      <div className="p-4 text-center text-gray-500">
-                        No notifications
-                      </div>
+                      <div className="p-4 text-center text-gray-500">No notifications</div>
                     )}
                   </div>
                   <div className="p-2 text-center border-t border-gray-200">
@@ -153,11 +143,8 @@ const FacultyHomePage = () => {
           </div>
         </div>
         
-        {/* Dashboard Content */}
         <div className="flex p-6 gap-6 flex-1">
-          {/* Left Column */}
           <div className="w-1/3 space-y-6">
-            {/* Recently Submitted */}
             <div className="bg-white rounded-lg shadow p-4">
               <h2 className="text-green-800 text-lg font-bold mb-2">Recently Submitted</h2>
               <hr className="border-gray-200 mb-4" />
@@ -170,8 +157,6 @@ const FacultyHomePage = () => {
                 ))}
               </ul>
             </div>
-
-            {/* Recently Created Account */}
             <div className="bg-white rounded-lg shadow p-4">
               <h2 className="text-green-800 text-lg font-bold mb-2">Recently Created Account</h2>
               <hr className="border-gray-200 mb-4" />
@@ -186,38 +171,62 @@ const FacultyHomePage = () => {
             </div>
           </div>
 
-          {/* Right Column */}
           <div className="w-2/3">
             <div className="bg-white rounded-lg shadow p-6 h-full">
-              <h2 className="text-green-800 text-2xl font-bold text-center mb-10">Compliance Status</h2>
+              {/* Improved Compliance Status Section */}
+              <h2 className="text-green-800 text-2xl font-bold text-center mb-8">Compliance Status</h2>
               
-              <div className="flex justify-between items-center">
-                {/* Disapproved */}
+              <div className="flex justify-between items-start px-6 mb-12">
                 <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mb-2">
-                    <X color="white" size={28} />
+                  <div className="w-20 h-20 bg-red-500 rounded-full flex items-center justify-center mb-3">
+                    <X color="white" size={32} />
                   </div>
-                  <p className="text-green-800 font-medium">Disapproved</p>
-                  <p className="text-3xl font-bold text-green-800 mt-2">2344</p>
+                  <p className="text-green-800 font-medium mb-1">Disapproved</p>
+                  <p className="text-4xl font-bold text-green-800">2344</p>
                 </div>
+                
+                <div className="flex flex-col items-center">
+                  <div className="w-20 h-20 bg-yellow-500 rounded-full flex items-center justify-center mb-3">
+                    <Clock color="white" size={32} />
+                  </div>
+                  <p className="text-green-800 font-medium mb-1">Pending Approval</p>
+                  <p className="text-4xl font-bold text-green-800">2344</p>
+                </div>
+                
+                <div className="flex flex-col items-center">
+                  <div className="w-20 h-20 bg-green-800 rounded-full flex items-center justify-center mb-3">
+                    <Check color="white" size={32} />
+                  </div>
+                  <p className="text-green-800 font-medium mb-1">Approved</p>
+                  <p className="text-4xl font-bold text-green-800">2344</p>
+                </div>
+              </div>
 
-                {/* Pending Approval */}
-                <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mb-2">
-                    <Clock color="white" size={28} />
-                  </div>
-                  <p className="text-green-800 font-medium">Pending Approval</p>
-                  <p className="text-3xl font-bold text-green-800 mt-2">2344</p>
+              {/* Improved Analytics Cards */}
+              <div className="grid grid-cols-2 gap-6 mb-8">
+                <div className="bg-white border border-gray-100 rounded-lg shadow p-5 text-center">
+                  <p className="text-green-800 font-medium mb-2">Total Faculty</p>
+                  <p className="text-3xl font-bold text-green-800">486</p>
                 </div>
+                <div className="bg-white border border-gray-100 rounded-lg shadow p-5 text-center">
+                  <p className="text-green-800 font-medium mb-2">Submissions This Week</p>
+                  <p className="text-3xl font-bold text-green-800">92</p>
+                </div>
+                <div className="bg-white border border-gray-100 rounded-lg shadow p-5 text-center">
+                  <p className="text-green-800 font-medium mb-2">Most Compliant Dept</p>
+                  <p className="text-2xl font-bold text-green-800">Computer Science</p>
+                </div>
+                <div className="bg-white border border-gray-100 rounded-lg shadow p-5 text-center">
+                  <p className="text-green-800 font-medium mb-2">Total Documents</p>
+                  <p className="text-3xl font-bold text-green-800">1370</p>
+                </div>
+              </div>
 
-                {/* Approved */}
-                <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 bg-green-800 rounded-full flex items-center justify-center mb-2">
-                    <Check color="white" size={28} />
-                  </div>
-                  <p className="text-green-800 font-medium">Approved</p>
-                  <p className="text-3xl font-bold text-green-800 mt-2">2344</p>
-                </div>
+              {/* Improved Report Button */}
+              <div className="flex justify-center">
+                <button className="bg-green-800 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded-md shadow text-lg flex">
+                  Generate Report
+                </button>
               </div>
             </div>
           </div>
@@ -227,4 +236,4 @@ const FacultyHomePage = () => {
   );
 };
 
-export default FacultyHomePage;
+export default AdminHomePage;
