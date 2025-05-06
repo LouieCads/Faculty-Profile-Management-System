@@ -1,4 +1,5 @@
 "use client";
+// Faculty Compliance
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -18,12 +19,17 @@ import {
   FileText,
   BarChart2,
   Settings,
+  Bell,
+  Search,
 } from "lucide-react";
 
 import "./facultyCompliance.css";
 
 const FacultyForm = () => {
   const [activeTab, setActiveTab] = useState("personal");
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [formData, setFormData] = useState({
     firstName: "Juan",
     lastName: "Dela Cruz",
@@ -42,28 +48,49 @@ const FacultyForm = () => {
     pagIbigNo: "Dela Cruz",
   });
 
-const tabs = [
-  { id: "personal", label: "Personal Information", icon: <User size={18} /> },
-  {
-    id: "educational",
-    label: "Educational Background",
-    icon: <BookOpen size={18} />,
-  },
-  { id: "experiences", label: "Experiences", icon: <Briefcase size={18} /> },
-  {
-    id: "licenses",
-    label: "Credentials",
-    icon: <BadgeCheck size={18} />,
-  },
-  {
-    id: "teaching",
-    label: "Teaching Assignments",
-    icon: <ClipboardList size={18} />,
-  },
-  { id: "research", label: "Research Outputs", icon: <FileText size={18} /> },
-  { id: "documents", label: "Documents", icon: <File size={18} /> },
-];
+  // Mock notifications data
+  const notifications = [
+    {
+      id: 1,
+      message: "Your personal information has been updated",
+      time: "2 hours ago",
+      read: false,
+    },
+    {
+      id: 2,
+      message: "Please complete your teaching assignments section",
+      time: "Yesterday",
+      read: false,
+    },
+    {
+      id: 3,
+      message: "Document review completed",
+      time: "2 days ago",
+      read: true,
+    },
+  ];
 
+  const tabs = [
+    { id: "personal", label: "Personal Information", icon: <User size={18} /> },
+    {
+      id: "educational",
+      label: "Educational Background",
+      icon: <BookOpen size={18} />,
+    },
+    { id: "experiences", label: "Experiences", icon: <Briefcase size={18} /> },
+    {
+      id: "licenses",
+      label: "Credentials",
+      icon: <BadgeCheck size={18} />,
+    },
+    {
+      id: "teaching",
+      label: "Teaching Assignments",
+      icon: <ClipboardList size={18} />,
+    },
+    { id: "research", label: "Research Outputs", icon: <FileText size={18} /> },
+    { id: "documents", label: "Documents", icon: <File size={18} /> },
+  ];
 
   const handleTabChange = (tabId) => {
     setActiveTab(tabId);
@@ -82,27 +109,43 @@ const tabs = [
     alert("Form submitted successfully!");
   };
 
+  const toggleNotifications = () => {
+    setShowNotifications(!showNotifications);
+    // Close profile dropdown if open
+    if (showProfile) setShowProfile(false);
+  };
+
+  const toggleProfile = () => {
+    setShowProfile(!showProfile);
+    // Close notifications if open
+    if (showNotifications) setShowNotifications(false);
+  };
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Left Sidebar */}
       <div className="w-[4.8rem] bg-[#125e20] flex flex-col items-center py-4">
         <div className="sideBar">
-          <img src="./Images/CCIS.png" alt="" className="logo" />
+          <img src="./Images/CCIS.png" alt="" className="logo w-10 h-10 mb-6" />
           <Link href="/Faculty-Homepage">
-            <div className="homeIcon">
+            <div className="homeIcon p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
               <House color="#ffffff" strokeWidth={2} />
             </div>
           </Link>
 
           <Link href="/Faculty-Compliance">
-            <div className="complianceIcon">
+            <div className="complianceIcon p-2 bg-green-700 rounded-md cursor-pointer mb-6">
               <File color="#ffffff" strokeWidth={2} />
             </div>
           </Link>
-          <div className="analyticsIcon">
+          <div className="analyticsIcon p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
             <ChartColumnBig color="#ffffff" strokeWidth={2} />
           </div>
-          <div className="settingsIcon">
+          <div className="settingsIcon p-2 hover:bg-green-700 rounded-md cursor-pointer">
             <Cog color="#ffffff" strokeWidth={2} />
           </div>
         </div>
@@ -112,25 +155,129 @@ const tabs = [
       <div className="flex-1 flex flex-col">
         {/* Top Navigation */}
         <div className="bg-white p-4 shadow-md flex justify-between items-center">
-          <h1 className="text-xl font-semibold text-green-800">
-            Hello Jayson!
-          </h1>
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-green-800 rounded-full"></div>
+          <div className="flex items-center">
+            <h1 className="text-xl font-semibold text-green-800">
+              Hello Jayson!
+            </h1>
+          </div>
+
+          <div className="flex items-center gap-4">
+            {/* Search Input */}
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={handleSearch}
+                className="pl-10 pr-4 py-2 border text-gray-700 border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
+              />
+              <div className="absolute left-3 top-2.5 text-gray-400">
+                <Search size={18} />
+              </div>
+            </div>
+
+            {/* Notifications */}
+            <div className="relative">
+              <button
+                onClick={toggleNotifications}
+                className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100"
+              >
+                <Bell size={20} className="text-gray-700" />
+                {notifications.filter((n) => !n.read).length > 0 && (
+                  <span className="absolute top-1 right-1 w-5 h-5 flex items-center justify-center bg-red-500 text-white rounded-full text-xs">
+                    {notifications.filter((n) => !n.read).length}
+                  </span>
+                )}
+              </button>
+
+              {showNotifications && (
+                <div className="absolute right-0 mt-2 w-80 bg-white rounded-md shadow-lg z-10 border border-gray-200">
+                  <div className="p-3 border-b border-gray-200">
+                    <h3 className="font-semibold text-gray-700">
+                      Notifications
+                    </h3>
+                  </div>
+                  <div className="max-h-96 overflow-y-auto">
+                    {notifications.length > 0 ? (
+                      notifications.map((notification) => (
+                        <div
+                          key={notification.id}
+                          className={`p-3 border-b border-gray-200 hover:bg-gray-50 cursor-pointer ${
+                            !notification.read ? "bg-blue-50" : ""
+                          }`}
+                        >
+                          <p className="text-sm text-gray-700">
+                            {notification.message}
+                          </p>
+                          <p className="text-xs text-gray-500 mt-1">
+                            {notification.time}
+                          </p>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="p-3 text-center text-gray-500">
+                        No notifications
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-2 border-t border-gray-200 text-center">
+                    <button className="text-sm text-green-600 hover:text-green-800">
+                      Mark all as read
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Profile Dropdown */}
+            <div className="relative">
+              <button
+                onClick={toggleProfile}
+                className="w-8 h-8 bg-green-800 rounded-full cursor-pointer"
+              ></button>
+
+              {showProfile && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 border border-gray-200">
+                  <div className="p-3 border-b border-gray-200">
+                    <h3 className="font-semibold text-gray-700">
+                      Jayson Dela Cruz
+                    </h3>
+                    <p className="text-xs text-gray-500">jayson@gmail.com</p>
+                  </div>
+                  <div>
+                    <Link href="/profile">
+                      <div className="p-3 hover:bg-gray-50 cursor-pointer">
+                        <span className="text-sm text-gray-700">
+                          My Profile
+                        </span>
+                      </div>
+                    </Link>
+                    <Link href="/settings">
+                      <div className="p-3 hover:bg-gray-50 cursor-pointer">
+                        <span className="text-sm text-gray-700">Settings</span>
+                      </div>
+                    </Link>
+                    <div className="p-3 border-t border-gray-200 hover:bg-gray-50 cursor-pointer">
+                      <span className="text-sm text-gray-700">Sign Out</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
         {/* Tab Navigation */}
-        <div className="overflow-x-auto bg-white border-b">
-          <div className="flex whitespace-nowrap">
+        <div className="bg-white border border-green-700 rounded-lg mx-4 mt-4 overflow-x-auto">
+          <div className="flex justify-between px-2 py-2">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-[1.3rem] px-4 py-2 ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-[7px] whitespace-nowrap transition-colors ${
                   activeTab === tab.id
-                    ? "bg-green-600 text-white"
-                    : "bg-gray-100 text-gray-700"
+                    ? "text-green-100 font-semibold bg-green-700"
+                    : "text-gray-500 hover:text-green-700 hover:bg-green-100"
                 }`}
               >
                 {tab.icon}
@@ -288,60 +435,6 @@ const tabs = [
                     />
                   </div>
                 </div>
-
-                {/* <h2 className="text-xl font-bold text-green-800 mt-8 mb-6 border-b pb-2  flex justify-center">
-                  Other Information
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-green-800 mb-1">
-                      GSIS No.
-                    </label>
-                    <input
-                      type="text"
-                      name="gsisNo"
-                      value={formData.gsisNo}
-                      onChange={handleChange}
-                      className="w-full border focus:text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-green-800 mb-1">
-                      SSS No.
-                    </label>
-                    <input
-                      type="text"
-                      name="sssNo"
-                      value={formData.sssNo}
-                      onChange={handleChange}
-                      className="w-full border focus:text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-green-800 mb-1">
-                      PhilHealth No.
-                    </label>
-                    <input
-                      type="text"
-                      name="philHealthNo"
-                      value={formData.philHealthNo}
-                      onChange={handleChange}
-                      className="w-full border focus:text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-green-800 mb-1">
-                      Pag-Ibig No.
-                    </label>
-                    <input
-                      type="text"
-                      name="pagIbigNo"
-                      value={formData.pagIbigNo}
-                      onChange={handleChange}
-                      className="w-full border focus:text-black border-gray-300 focus:outline-none focus:ring-1 focus:ring-green-500 rounded-md px-3 py-2"
-                    />
-                  </div>
-                </div> */}
 
                 <div className="mt-8 flex justify-center">
                   <button
