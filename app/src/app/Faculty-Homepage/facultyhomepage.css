@@ -1,0 +1,155 @@
+:root {
+  --backgroundColor: #f9f9f9;
+  --colorDarkGreen: #125e20;
+  --colorLightGreen: #9daf38;
+  --colorWhite: #fff;
+  --colorOffWhite: rgb(247, 247, 247, 0.5);
+  --border: 1px solid #ddd ;
+  --hrBorder: 1px solid #ddd ;
+}
+
+body {
+  background-color: var(--backgroundColor);
+  overflow-x: hidden;
+}
+
+.containers {
+  display: flex;
+}
+.leftContainer {
+  background-color: var(--colorDarkGreen);
+  height: 100vh;
+  width: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
+}
+.logo {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1rem;
+}
+.sideBar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .75rem;
+}
+.homeIcon {
+    background-color: var(--colorLightGreen);
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.complianceIcon {
+    background-color: var(--colorLightGreen);
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.analyticsIcon {
+    background-color: var(--colorLightGreen);
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.settingsIcon {
+    background-color: var(--colorLightGreen);
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rightContainer {
+    display: flex;
+    flex-direction: column;
+}
+.navBar {
+    background-color: var(--colorWhite);
+    padding: 1rem;
+    width: 95vw;
+    border: var(--border);
+    color: var(--colorDarkGreen);
+    font-weight: 900;
+}
+.moduleLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.moduleOne {
+    background-color: var(--colorWhite);
+    border: var(--border);
+    width: 18rem;
+    height: max-content;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    color: var(--colorDarkGreen);
+}
+.moduleOne p {
+    font-weight: 900;
+}
+.modules {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin: 1rem;
+}
+.moduleLeft hr{
+    width: 100%;
+    margin: .5rem auto;
+    opacity: .15;
+}
+.moduleTwo {
+    background-color: var(--colorWhite);
+    border: var(--border);
+    width: 18rem;
+    height: max-content;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    color: var(--colorDarkGreen);
+}
+.moduleTwo p {
+    font-weight: 900;
+}
+ul {
+  list-style: disc;
+  padding-left: 1.5rem; /* ensures bullets are visible */
+}
+.moduleThree {
+    background-color: var(--colorWhite);
+    border: var(--border);
+    width: 18rem;
+    height: max-content;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    color: var(--colorDarkGreen);
+}
+.moduleThree p {
+    font-weight: 900;
+}
+.moduleRight {
+    background-color: var(--colorWhite);
+    border: var(--border);
+    width: 90%;
+    height: 90%;
+    border-radius: 5px;
+}
