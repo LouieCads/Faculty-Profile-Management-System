@@ -19,6 +19,13 @@ import {
   BarChart2,
   Settings,
 } from "lucide-react";
+import {
+  useAccount,
+  useWriteContract,
+  useChainId,
+  useReadContract,
+  useWatchContractEvent,
+} from "wagmi"
 
 import "./facultyCompliance.css";
 
