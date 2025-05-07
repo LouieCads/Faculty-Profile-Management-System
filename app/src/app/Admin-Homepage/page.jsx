@@ -39,34 +39,39 @@ const AdminHomePage = () => {
   return (
     <div className="flex h-screen">
       {showNotifications && (
-        <div 
+        <div
           className="fixed inset-0 bg-opacity-30 z-10"
           onClick={() => setShowNotifications(false)}
         ></div>
       )}
-      
+
       <div className="leftContainer">
         <div className="sideBar">
           <img src="./Images/CCIS.png" alt="" className="logo" />
-          <Link href="/Admin-Homepage">
-            <div className="homeIcon">
-              <House color="#ffffff" strokeWidth={2} />
-            </div>
-          </Link>
-          <Link href="/Account-Management">
-            <div className="complianceIcon">
-              <UserRound color="#ffffff" strokeWidth={2} />
-            </div>
-          </Link>
-          <div className="analyticsIcon">
-            <ListCheck color="#ffffff" strokeWidth={2} />
-          </div>
-          <div className="settingsIcon">
-            <Cog color="#ffffff" strokeWidth={2} />
-          </div>
+          <div className="sideBar">
+            <Link href="/Admin-Homepage">
+              <div className=" p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
+                <House color="#ffffff" strokeWidth={2} />
+              </div>
+            </Link>
+            <Link href="/Account-Management">
+              <div className=" p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
+                <UserRound color="#ffffff" strokeWidth={2} />
+              </div>
+            </Link>
+            <Link rel="stylesheet" href="/Admin-Submission-Review">
+              <div className=" p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
+                <ListCheck color="#ffffff" strokeWidth={2} />
+              </div>
+            </Link>
+            <div className=" p-2 hover:bg-green-700 rounded-md cursor-pointer">
+              <Cog color="#ffffff" strokeWidth={2} />
+            </div>{" "}
+          </div>{" "}
+
         </div>
       </div>
-      
+
       <div className="flex-1 flex flex-col bg-gray-100">
         <div className="h-16 border-b px-6 flex items-center justify-between bg-white shadow-sm">
           <div className="flex items-center">
@@ -87,7 +92,7 @@ const AdminHomePage = () => {
           <div className="flex items-center space-x-4">
             <div className="relative">
               <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></div>
-              <button 
+              <button
                 className="text-gray-600 hover:text-gray-800 relative"
                 onClick={toggleNotifications}
               >
@@ -96,8 +101,10 @@ const AdminHomePage = () => {
               {showNotifications && (
                 <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg z-20 border border-gray-200">
                   <div className="p-3 border-b border-gray-200 flex justify-between items-center">
-                    <h3 className="font-semibold text-green-800">Notifications</h3>
-                    <button 
+                    <h3 className="font-semibold text-green-800">
+                      Notifications
+                    </h3>
+                    <button
                       className="text-gray-500 hover:text-gray-700"
                       onClick={(e) => {
                         e.stopPropagation();
@@ -111,22 +118,30 @@ const AdminHomePage = () => {
                     {notifications.length > 0 ? (
                       <div>
                         {notifications.map((notification) => (
-                          <div 
-                            key={notification.id} 
-                            className={`p-3 border-b border-gray-100 hover:bg-gray-50 ${!notification.isRead ? 'bg-green-50' : ''}`}
+                          <div
+                            key={notification.id}
+                            className={`p-3 border-b border-gray-100 hover:bg-gray-50 ${
+                              !notification.isRead ? "bg-green-50" : ""
+                            }`}
                           >
                             <div className="flex justify-between">
-                              <p className="text-sm text-green-800 font-medium">{notification.message}</p>
+                              <p className="text-sm text-green-800 font-medium">
+                                {notification.message}
+                              </p>
                               {!notification.isRead && (
                                 <span className="h-2 w-2 bg-green-600 rounded-full"></span>
                               )}
                             </div>
-                            <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
+                            <p className="text-xs text-gray-500 mt-1">
+                              {notification.time}
+                            </p>
                           </div>
                         ))}
                       </div>
                     ) : (
-                      <div className="p-4 text-center text-gray-500">No notifications</div>
+                      <div className="p-4 text-center text-gray-500">
+                        No notifications
+                      </div>
                     )}
                   </div>
                   <div className="p-2 text-center border-t border-gray-200">
@@ -142,23 +157,29 @@ const AdminHomePage = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="flex p-6 gap-6 flex-1">
           <div className="w-1/3 space-y-6">
             <div className="bg-white rounded-lg shadow p-4">
-              <h2 className="text-green-800 text-lg font-bold mb-2">Recently Submitted</h2>
+              <h2 className="text-green-800 text-lg font-bold mb-2">
+                Recently Submitted
+              </h2>
               <hr className="border-gray-200 mb-4" />
               <ul className="space-y-2">
                 {recentSubmissions.map((item, index) => (
                   <li key={index} className="flex items-start">
                     <span className="text-green-800 mr-2">•</span>
-                    <p className="text-green-800">{item.name} submitted {item.document}</p>
+                    <p className="text-green-800">
+                      {item.name} submitted {item.document}
+                    </p>
                   </li>
                 ))}
               </ul>
             </div>
             <div className="bg-white rounded-lg shadow p-4">
-              <h2 className="text-green-800 text-lg font-bold mb-2">Recently Created Account</h2>
+              <h2 className="text-green-800 text-lg font-bold mb-2">
+                Recently Created Account
+              </h2>
               <hr className="border-gray-200 mb-4" />
               <ul className="space-y-2">
                 {recentAccounts.map((name, index) => (
@@ -174,8 +195,10 @@ const AdminHomePage = () => {
           <div className="w-2/3">
             <div className="bg-white rounded-lg shadow p-6 h-full">
               {/* Improved Compliance Status Section */}
-              <h2 className="text-green-800 text-2xl font-bold text-center mb-8">Compliance Status</h2>
-              
+              <h2 className="text-green-800 text-2xl font-bold text-center mb-8">
+                Compliance Status
+              </h2>
+
               <div className="flex justify-between items-start px-6 mb-12">
                 <div className="flex flex-col items-center">
                   <div className="w-20 h-20 bg-red-500 rounded-full flex items-center justify-center mb-3">
@@ -184,15 +207,17 @@ const AdminHomePage = () => {
                   <p className="text-green-800 font-medium mb-1">Disapproved</p>
                   <p className="text-4xl font-bold text-green-800">03</p>
                 </div>
-                
+
                 <div className="flex flex-col items-center">
                   <div className="w-20 h-20 bg-yellow-500 rounded-full flex items-center justify-center mb-3">
                     <Clock color="white" size={32} />
                   </div>
-                  <p className="text-green-800 font-medium mb-1">Pending Approval</p>
+                  <p className="text-green-800 font-medium mb-1">
+                    Pending Approval
+                  </p>
                   <p className="text-4xl font-bold text-green-800">03</p>
                 </div>
-                
+
                 <div className="flex flex-col items-center">
                   <div className="w-20 h-20 bg-green-800 rounded-full flex items-center justify-center mb-3">
                     <Check color="white" size={32} />
@@ -205,19 +230,29 @@ const AdminHomePage = () => {
               {/* Improved Analytics Cards */}
               <div className="grid grid-cols-2 gap-6 mb-8">
                 <div className="bg-white border border-gray-100 rounded-lg shadow p-5 text-center">
-                  <p className="text-green-800 font-medium mb-2">Total Faculty</p>
+                  <p className="text-green-800 font-medium mb-2">
+                    Total Faculty
+                  </p>
                   <p className="text-3xl font-bold text-green-800">35</p>
                 </div>
                 <div className="bg-white border border-gray-100 rounded-lg shadow p-5 text-center">
-                  <p className="text-green-800 font-medium mb-2">Submissions This Week</p>
+                  <p className="text-green-800 font-medium mb-2">
+                    Submissions This Week
+                  </p>
                   <p className="text-3xl font-bold text-green-800">23</p>
                 </div>
                 <div className="bg-white border border-gray-100 rounded-lg shadow p-5 text-center">
-                  <p className="text-green-800 font-medium mb-2">Most Compliant Dept</p>
-                  <p className="text-2xl font-bold text-green-800">Computer Science</p>
+                  <p className="text-green-800 font-medium mb-2">
+                    Most Compliant Dept
+                  </p>
+                  <p className="text-2xl font-bold text-green-800">
+                    Computer Science
+                  </p>
                 </div>
                 <div className="bg-white border border-gray-100 rounded-lg shadow p-5 text-center">
-                  <p className="text-green-800 font-medium mb-2">Total Documents</p>
+                  <p className="text-green-800 font-medium mb-2">
+                    Total Documents
+                  </p>
                   <p className="text-3xl font-bold text-green-800">89</p>
                 </div>
               </div>
