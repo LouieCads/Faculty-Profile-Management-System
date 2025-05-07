@@ -26,7 +26,10 @@ const {
           "FacultyProfile",
           deployer,
         );
-        facultyProfile = await FacultyProfile.deploy(deployer.address, user1.address);
+        facultyProfile = await FacultyProfile.deploy(
+          deployer.address,
+          user1.address,
+        );
         await facultyProfile.waitForDeployment();
 
         // Get role hashes
@@ -52,16 +55,24 @@ const {
           expect(hasRole).to.be.true;
         });
 
-        it("should allow admin to grant FACULTY_MEMBER role", async () => {
-          // Admin grants FACULTY_MEMBER role to user1
-          await facultyProfile
-            .connect(deployer)
-            .grantRole(FACULTY_MEMBER_ROLE, user1.address);
-
-          // Check if user1 has FACULTY_MEMBER role
+        it("should set user1 as FACULTY_MEMBER by default", async () => {
           const hasRole = await facultyProfile.hasRole(
             FACULTY_MEMBER_ROLE,
             user1.address,
+          );
+          expect(hasRole).to.be.true;
+        });
+
+        it("should allow admin to grant FACULTY_MEMBER role", async () => {
+          // Admin grants FACULTY_MEMBER role to user2
+          await facultyProfile
+            .connect(deployer)
+            .grantRole(FACULTY_MEMBER_ROLE, user2.address);
+
+          // Check if user2 has FACULTY_MEMBER role
+          const hasRole = await facultyProfile.hasRole(
+            FACULTY_MEMBER_ROLE,
+            user2.address,
           );
           expect(hasRole).to.be.true;
         });
@@ -88,12 +99,7 @@ const {
         });
 
         it("should allow admin to revoke FACULTY_MEMBER role", async () => {
-          // First grant the role
-          await facultyProfile
-            .connect(deployer)
-            .grantRole(FACULTY_MEMBER_ROLE, user1.address);
-
-          // Then revoke it
+          // Revoke the role from user1 (who already has it from deployment)
           await facultyProfile
             .connect(deployer)
             .revokeRole(FACULTY_MEMBER_ROLE, user1.address);
@@ -107,11 +113,6 @@ const {
         });
 
         it("should prevent non-admin from revoking FACULTY_MEMBER role", async () => {
-          // First grant the role to user1
-          await facultyProfile
-            .connect(deployer)
-            .grantRole(FACULTY_MEMBER_ROLE, user1.address);
-
           // User2 tries to revoke user1's role
           await expect(
             facultyProfile
@@ -135,13 +136,6 @@ const {
 
       // Test personal info submission
       describe("Personal Info Submission", () => {
-        beforeEach(async () => {
-          // Grant FACULTY_MEMBER role to faculty
-          await facultyProfile
-            .connect(deployer)
-            .grantRole(FACULTY_MEMBER_ROLE, user1.address);
-        });
-
         it("should allow faculty to submit personal info", async () => {
           const personalInfo = {
             firstName: "Louigie",
@@ -151,9 +145,6 @@ const {
             birthday: "1990-01-01",
             civilStatus: "Single",
             homeAddress: "123 Main St",
-            contactNum: 1234567890,
-            email: "louie@umak.edu.ph",
-            telephoneNum: "555-1234-121",
           };
 
           // Submit personal info
@@ -168,9 +159,6 @@ const {
                 personalInfo.birthday,
                 personalInfo.civilStatus,
                 personalInfo.homeAddress,
-                personalInfo.contactNum,
-                personalInfo.email,
-                personalInfo.telephoneNum,
               ),
           )
             .to.emit(facultyProfile, "PersonalInfoSubmitted")
@@ -179,14 +167,18 @@ const {
           // Retrieve and verify personal info
           const profile = await facultyProfile.getPersonalInfo(user1.address);
           expect(profile.firstName).to.equal(personalInfo.firstName);
+          expect(profile.middleName).to.equal(personalInfo.middleName);
           expect(profile.lastName).to.equal(personalInfo.lastName);
-          expect(Number(profile.contactNum)).to.equal(personalInfo.contactNum); // Convert BigNumber to number
-          expect(profile.email).to.equal(personalInfo.email);
+          expect(profile.suffix).to.equal(personalInfo.suffix);
+          expect(profile.birthday).to.equal(personalInfo.birthday);
+          expect(profile.civilStatus).to.equal(personalInfo.civilStatus);
+          expect(profile.homeAddress).to.equal(personalInfo.homeAddress);
           expect(profile.isApproved).to.be.false;
           expect(profile.exists).to.be.true;
         });
 
         it("should prevent non-faculty from submitting personal info", async () => {
+          // Note: user2 doesn't have FACULTY_MEMBER role
           await expect(
             facultyProfile
               .connect(user2)
@@ -198,9 +190,6 @@ const {
                 "1995-02-02",
                 "Married",
                 "456 Oak St",
-                9876543210,
-                "jane@example.com",
-                "555-5678",
               ),
           )
             .to.be.revertedWithCustomError(
@@ -222,9 +211,6 @@ const {
               "1990-01-01",
               "Single",
               "123 Main St",
-              1234567890,
-              "john@example.com",
-              "555-1234",
             );
 
           // Attempt to submit again
@@ -239,9 +225,6 @@ const {
                 "1990-01-01",
                 "Single",
                 "123 Main St",
-                1234567890,
-                "john@example.com",
-                "555-1234",
               ),
           ).to.be.revertedWith("Personal Information already submitted");
         });
@@ -250,10 +233,7 @@ const {
       // Test personal info retrieval
       describe("Personal Info Retrieval", () => {
         beforeEach(async () => {
-          // Grant FACULTY_MEMBER role and submit personal info
-          await facultyProfile
-            .connect(deployer)
-            .grantRole(FACULTY_MEMBER_ROLE, user1.address);
+          // Submit personal info
           await facultyProfile
             .connect(user1)
             .submitPersonalInfo(
@@ -264,16 +244,18 @@ const {
               "1990-01-01",
               "Single",
               "123 Main St",
-              1234567890,
-              "john@example.com",
-              "555-1234",
             );
         });
 
         it("should retrieve existing personal info", async () => {
           const profile = await facultyProfile.getPersonalInfo(user1.address);
           expect(profile.firstName).to.equal("John");
+          expect(profile.middleName).to.equal("M");
           expect(profile.lastName).to.equal("Doe");
+          expect(profile.suffix).to.equal("");
+          expect(profile.birthday).to.equal("1990-01-01");
+          expect(profile.civilStatus).to.equal("Single");
+          expect(profile.homeAddress).to.equal("123 Main St");
           expect(profile.isApproved).to.be.false;
           expect(profile.exists).to.be.true;
         });
@@ -285,13 +267,10 @@ const {
         });
       });
 
-      // Test personal info retrieval
+      // Test personal info approval
       describe("Personal Info Approval", () => {
         beforeEach(async () => {
-          // Grant FACULTY_MEMBER role and submit personal info
-          await facultyProfile
-            .connect(deployer)
-            .grantRole(FACULTY_MEMBER_ROLE, user1.address);
+          // Submit personal info
           await facultyProfile
             .connect(user1)
             .submitPersonalInfo(
@@ -302,9 +281,6 @@ const {
               "1990-01-01",
               "Single",
               "123 Main St",
-              1234567890,
-              "john@example.com",
-              "555-1234",
             );
         });
 
@@ -314,7 +290,12 @@ const {
           )
             .to.emit(facultyProfile, "PersonalInfoApproved")
             .withArgs(user1.address, deployer.address);
+
+          // Verify profile is now approved
+          const profile = await facultyProfile.getPersonalInfo(user1.address);
+          expect(profile.isApproved).to.be.true;
         });
+
         it("should prevent non-admin from approving personal info", async () => {
           await expect(
             facultyProfile.connect(user2).approvePersonalInfo(user1.address),
@@ -325,11 +306,13 @@ const {
             )
             .withArgs(user2.address, ADMIN_ROLE);
         });
+
         it("should revert if personal info does not exist", async () => {
           await expect(
             facultyProfile.connect(deployer).approvePersonalInfo(user2.address),
           ).to.be.revertedWith("Personal Information does not exist");
         });
+
         it("should not allow approving an already approved profile", async () => {
           // First approval
           await facultyProfile
@@ -344,6 +327,113 @@ const {
           // Verify profile remains approved
           const profile = await facultyProfile.getPersonalInfo(user1.address);
           expect(profile.isApproved).to.be.true;
+        });
+      });
+
+      // Additional tests for other sections (Educational Background, Work Experience, etc.)
+      describe("Educational Background", () => {
+        it("should allow faculty to submit educational background", async () => {
+          const education = {
+            elementarySchoolName: "Elementary School",
+            elementaryDateGraduated: "2005",
+            elementarySchoolAddress: "123 Elementary St",
+            highschoolSchoolName: "High School",
+            highschoolDateGraduated: "2009",
+            highschoolSchoolAddress: "456 High School Ave",
+            collegeSchoolName: "University",
+            collegeDateGraduated: "2013",
+            collegeSchoolAddress: "789 University Blvd",
+          };
+
+          await facultyProfile
+            .connect(user1)
+            .submitEducationalBackground(
+              education.elementarySchoolName,
+              education.elementaryDateGraduated,
+              education.elementarySchoolAddress,
+              education.highschoolSchoolName,
+              education.highschoolDateGraduated,
+              education.highschoolSchoolAddress,
+              education.collegeSchoolName,
+              education.collegeDateGraduated,
+              education.collegeSchoolAddress,
+            );
+
+          const retrievedEducation =
+            await facultyProfile.getEducationalBackground(user1.address);
+          expect(retrievedEducation.elementarySchoolName).to.equal(
+            education.elementarySchoolName,
+          );
+          expect(retrievedEducation.highschoolSchoolName).to.equal(
+            education.highschoolSchoolName,
+          );
+          expect(retrievedEducation.collegeSchoolName).to.equal(
+            education.collegeSchoolName,
+          );
+          expect(retrievedEducation.isApproved).to.be.false;
+          expect(retrievedEducation.exists).to.be.true;
+        });
+
+        it("should prevent duplicate educational background submission", async () => {
+          const education = {
+            elementarySchoolName: "Elementary School",
+            elementaryDateGraduated: "2005",
+            elementarySchoolAddress: "123 Elementary St",
+            highschoolSchoolName: "High School",
+            highschoolDateGraduated: "2009",
+            highschoolSchoolAddress: "456 High School Ave",
+            collegeSchoolName: "University",
+            collegeDateGraduated: "2013",
+            collegeSchoolAddress: "789 University Blvd",
+          };
+
+          await facultyProfile
+            .connect(user1)
+            .submitEducationalBackground(
+              education.elementarySchoolName,
+              education.elementaryDateGraduated,
+              education.elementarySchoolAddress,
+              education.highschoolSchoolName,
+              education.highschoolDateGraduated,
+              education.highschoolSchoolAddress,
+              education.collegeSchoolName,
+              education.collegeDateGraduated,
+              education.collegeSchoolAddress,
+            );
+
+          await expect(
+            facultyProfile
+              .connect(user1)
+              .submitEducationalBackground(
+                education.elementarySchoolName,
+                education.elementaryDateGraduated,
+                education.elementarySchoolAddress,
+                education.highschoolSchoolName,
+                education.highschoolDateGraduated,
+                education.highschoolSchoolAddress,
+                education.collegeSchoolName,
+                education.collegeDateGraduated,
+                education.collegeSchoolAddress,
+              ),
+          ).to.be.revertedWith("Educational Background already submitted");
+        });
+      });
+
+      // Sample test for work experience
+      describe("Work Experience", () => {
+        it("should allow faculty to submit work experience", async () => {
+          await facultyProfile
+            .connect(user1)
+            .submitWorkExperience("ABC Company", 5, "Software Developer");
+
+          const experience = await facultyProfile.getWorkExperience(
+            user1.address,
+          );
+          expect(experience.companyName).to.equal("ABC Company");
+          expect(Number(experience.yearsServed)).to.equal(5);
+          expect(experience.position).to.equal("Software Developer");
+          expect(experience.isApproved).to.be.false;
+          expect(experience.exists).to.be.true;
         });
       });
     });
