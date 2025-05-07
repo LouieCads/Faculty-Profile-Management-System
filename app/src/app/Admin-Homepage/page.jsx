@@ -70,7 +70,7 @@ const AdminHomePage = () => {
       <div className="flex-1 flex flex-col bg-gray-100">
         <div className="h-16 border-b px-6 flex items-center justify-between bg-white shadow-sm">
           <div className="flex items-center">
-            <div className="relative w-64">
+            {/* <div className="relative w-64">
               <input
                 type="text"
                 placeholder="Search..."
@@ -81,7 +81,7 @@ const AdminHomePage = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="flex items-center space-x-4">
@@ -182,7 +182,7 @@ const AdminHomePage = () => {
                     <X color="white" size={32} />
                   </div>
                   <p className="text-green-800 font-medium mb-1">Disapproved</p>
-                  <p className="text-4xl font-bold text-green-800">2344</p>
+                  <p className="text-4xl font-bold text-green-800">03</p>
                 </div>
                 
                 <div className="flex flex-col items-center">
@@ -190,7 +190,7 @@ const AdminHomePage = () => {
                     <Clock color="white" size={32} />
                   </div>
                   <p className="text-green-800 font-medium mb-1">Pending Approval</p>
-                  <p className="text-4xl font-bold text-green-800">2344</p>
+                  <p className="text-4xl font-bold text-green-800">03</p>
                 </div>
                 
                 <div className="flex flex-col items-center">
@@ -198,7 +198,7 @@ const AdminHomePage = () => {
                     <Check color="white" size={32} />
                   </div>
                   <p className="text-green-800 font-medium mb-1">Approved</p>
-                  <p className="text-4xl font-bold text-green-800">2344</p>
+                  <p className="text-4xl font-bold text-green-800">02</p>
                 </div>
               </div>
 
@@ -206,11 +206,11 @@ const AdminHomePage = () => {
               <div className="grid grid-cols-2 gap-6 mb-8">
                 <div className="bg-white border border-gray-100 rounded-lg shadow p-5 text-center">
                   <p className="text-green-800 font-medium mb-2">Total Faculty</p>
-                  <p className="text-3xl font-bold text-green-800">486</p>
+                  <p className="text-3xl font-bold text-green-800">35</p>
                 </div>
                 <div className="bg-white border border-gray-100 rounded-lg shadow p-5 text-center">
                   <p className="text-green-800 font-medium mb-2">Submissions This Week</p>
-                  <p className="text-3xl font-bold text-green-800">92</p>
+                  <p className="text-3xl font-bold text-green-800">23</p>
                 </div>
                 <div className="bg-white border border-gray-100 rounded-lg shadow p-5 text-center">
                   <p className="text-green-800 font-medium mb-2">Most Compliant Dept</p>
@@ -218,7 +218,7 @@ const AdminHomePage = () => {
                 </div>
                 <div className="bg-white border border-gray-100 rounded-lg shadow p-5 text-center">
                   <p className="text-green-800 font-medium mb-2">Total Documents</p>
-                  <p className="text-3xl font-bold text-green-800">1370</p>
+                  <p className="text-3xl font-bold text-green-800">89</p>
                 </div>
               </div>
 

@@ -151,6 +151,7 @@ const AdminSubmissionReview = () => {
 
   return (
     <div className="flex h-screen bg-gray-100">
+      {/* Side Navbar */}
       <div className="w-[4.8rem] bg-[#125e20] flex flex-col items-center py-4">
         <div className="sideBar">
           <img src="./Images/CCIS.png" alt="" className="logo w-10 h-10 mb-6" />

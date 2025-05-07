@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import "./facultyhomepage.css";
 import {
   House,
   File,
@@ -14,13 +13,39 @@ import {
 
 const AccountManagementPage = () => {
   const [showNotifications, setShowNotifications] = useState(false);
+  const [activeNavItem, setActiveNavItem] = useState("home");
 
   const notifications = [
-    { id: 1, message: "Dellosa submitted diploma.png", time: "5 minutes ago", isRead: false },
-    { id: 2, message: "Dorin submitted diploma.png", time: "10 minutes ago", isRead: false },
-    { id: 3, message: "New account created: Althea Reyes", time: "1 hour ago", isRead: true },
-    { id: 4, message: "Document approved: Juan's diploma.png", time: "3 hours ago", isRead: true },
-    { id: 5, message: "System update completed", time: "1 day ago", isRead: true },
+    {
+      id: 1,
+      message: "Dellosa submitted diploma.png",
+      time: "5 minutes ago",
+      isRead: false,
+    },
+    {
+      id: 2,
+      message: "Dorin submitted diploma.png",
+      time: "10 minutes ago",
+      isRead: false,
+    },
+    {
+      id: 3,
+      message: "New account created: Althea Reyes",
+      time: "1 hour ago",
+      isRead: true,
+    },
+    {
+      id: 4,
+      message: "Document approved: Juan's diploma.png",
+      time: "3 hours ago",
+      isRead: true,
+    },
+    {
+      id: 5,
+      message: "System update completed",
+      time: "1 day ago",
+      isRead: true,
+    },
   ];
 
   const toggleNotifications = () => {
@@ -28,41 +53,37 @@ const AccountManagementPage = () => {
   };
 
   return (
-    <div className="containers flex h-screen bg-white">
-      <div className="leftContainer">
+    <div className="flex h-screen bg-gray-100">
+      {/* Side Navbar */}
+      <div className="w-[4.8rem] bg-[#125e20] flex flex-col items-center py-4">
         <div className="sideBar">
-          <img src="./Images/CCIS.png" alt="CCIS Logo" className="logo" />
+          <img src="./Images/CCIS.png" alt="" className="logo w-10 h-10 mb-6" />
           <Link href="/Faculty-Homepage">
-            <div className="homeIcon">
+            <div className="homeIcon p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
               <House color="#ffffff" strokeWidth={2} />
             </div>
           </Link>
           <Link href="/Faculty-Compliance">
-            <div className="complianceIcon">
+            <div className="complianceIcon p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
               <File color="#ffffff" strokeWidth={2} />
             </div>
           </Link>
-          <div className="analyticsIcon">
+          <div className="analyticsIcon p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
             <ChartColumnBig color="#ffffff" strokeWidth={2} />
           </div>
-          <div className="settingsIcon">
+          <div className="settingsIcon p-2 hover:bg-green-700 rounded-md cursor-pointer">
             <Cog color="#ffffff" strokeWidth={2} />
           </div>
         </div>
       </div>
 
       <div className="flex-1 flex flex-col bg-gray-100">
-        <div className="h-16 border-b px-6 flex items-center justify-between bg-white shadow-sm">
+        <div className="h-17 border-b p-4 flex items-center justify-between bg-white shadow-sm">
           <div className="flex items-center">
             <div className="relative w-64">
-              <input
-                type="text"
-                placeholder="Search..."
-                className="text-green-800 pl-10 pr-4 py-2 border rounded-md w-full focus:outline-none focus:ring-1 focus:ring-green-800"
-              />
-              <div className="absolute left-3 top-2.5">
-                <Search className="h-5 w-5 text-gray-400" />
-              </div>
+              <h1 className="text-[#125e20] text-[2.5rem] font-bold ml-2">
+                Good Day!
+              </h1>
             </div>
           </div>
 
@@ -79,7 +100,9 @@ const AccountManagementPage = () => {
               {showNotifications && (
                 <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg z-20 border border-gray-200">
                   <div className="p-3 border-b border-gray-200 flex justify-between items-center">
-                    <h3 className="font-semibold text-green-800">Notifications</h3>
+                    <h3 className="font-semibold text-green-800">
+                      Notifications
+                    </h3>
                     <button
                       className="text-gray-500 hover:text-gray-700"
                       onClick={(e) => {
@@ -95,19 +118,27 @@ const AccountManagementPage = () => {
                       notifications.map((notification) => (
                         <div
                           key={notification.id}
-                          className={`p-3 border-b border-gray-100 hover:bg-gray-50 ${!notification.isRead ? "bg-green-50" : ""}`}
+                          className={`p-3 border-b border-gray-100 hover:bg-gray-50 ${
+                            !notification.isRead ? "bg-green-50" : ""
+                          }`}
                         >
                           <div className="flex justify-between">
-                            <p className="text-sm text-green-800 font-medium">{notification.message}</p>
+                            <p className="text-sm text-green-800 font-medium">
+                              {notification.message}
+                            </p>
                             {!notification.isRead && (
                               <span className="h-2 w-2 bg-green-600 rounded-full"></span>
                             )}
                           </div>
-                          <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
+                          <p className="text-xs text-gray-500 mt-1">
+                            {notification.time}
+                          </p>
                         </div>
                       ))
                     ) : (
-                      <div className="p-4 text-center text-gray-500">No notifications</div>
+                      <div className="p-4 text-center text-gray-500">
+                        No notifications
+                      </div>
                     )}
                   </div>
                   <div className="p-2 text-center border-t border-gray-200">
@@ -132,21 +163,27 @@ const AccountManagementPage = () => {
             <div className="col-span-1">
               {/* Needs Action */}
               <div className="bg-white p-4 rounded-md shadow-sm mb-6">
-                <h2 className="text-lg font-medium text-green-800 mb-2">Needs Action</h2>
+                <h2 className="text-lg font-medium text-green-800 mb-2">
+                  Needs Action
+                </h2>
                 <hr className="mb-4" />
                 <ul className="space-y-2">
-                  {Array(5).fill("Juan submitted diploma.png").map((item, index) => (
-                    <li key={index} className="flex items-start">
-                      <span className="text-green-800 mr-2">•</span>
-                      <span className="text-green-800">{item}</span>
-                    </li>
-                  ))}
+                  {Array(5)
+                    .fill("Juan submitted diploma.png")
+                    .map((item, index) => (
+                      <li key={index} className="flex items-start">
+                        <span className="text-green-800 mr-2">•</span>
+                        <span className="text-green-800">{item}</span>
+                      </li>
+                    ))}
                 </ul>
               </div>
 
               {/* Compliance Status */}
               <div className="bg-white p-4 rounded-md shadow-sm mb-6">
-                <h2 className="text-lg font-medium text-green-800 mb-2">Compliance Status</h2>
+                <h2 className="text-lg font-medium text-green-800 mb-2">
+                  Compliance Status
+                </h2>
                 <hr className="mb-4" />
                 <div className="space-y-4">
                   {[
@@ -159,7 +196,10 @@ const AccountManagementPage = () => {
                         <span>{percent}%</span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div className="bg-green-800 h-2 rounded-full" style={{ width: `${percent}%` }}></div>
+                        <div
+                          className="bg-green-800 h-2 rounded-full"
+                          style={{ width: `${percent}%` }}
+                        ></div>
                       </div>
                     </div>
                   ))}
@@ -168,7 +208,9 @@ const AccountManagementPage = () => {
 
               {/* Recent Actions */}
               <div className="bg-white p-4 rounded-md shadow-sm">
-                <h2 className="text-lg font-medium text-green-800 mb-2">Recent Actions</h2>
+                <h2 className="text-lg font-medium text-green-800 mb-2">
+                  Recent Actions
+                </h2>
                 <hr className="mb-4" />
                 <ul className="space-y-2">
                   {[
@@ -176,7 +218,7 @@ const AccountManagementPage = () => {
                     "Submitted Accreditation",
                     "Updated Educational Background",
                     "Updated Profile Picture",
-                    "Updated Personal Background"
+                    "Updated Personal Background",
                   ].map((item, index) => (
                     <li key={index} className="flex items-start">
                       <span className="text-green-800 mr-2">•</span>
@@ -193,15 +235,23 @@ const AccountManagementPage = () => {
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-gray-200 rounded-full mr-4"></div>
                   <div>
-                    <h2 className="text-lg font-medium text-green-800">College of Computing and Information Sciences</h2>
+                    <h2 className="text-lg font-medium text-green-800">
+                      College of Computing and Information Sciences
+                    </h2>
                     <p className="text-gray-500 text-sm">June 1, 2025</p>
                   </div>
                 </div>
-                <div className="bg-green-100 h-64 rounded-md"></div>
-                <h2 className="text-xl font-medium text-green-800 mb-2">CCIS Off-Camping Outreach Program</h2>
+                <div className="bg-green-100 h-64 rounded-md">
+                  <img src="./Images/Event.jpg" className=" w-full h-64 object-cover" alt="" />
+                </div>
+                <h2 className="text-xl font-medium text-green-800 mb-2">
+                  CCIS Off-Camping Outreach Program
+                </h2>
                 <p className="text-gray-600 mb-4">
-                  The CCIS Off-Campus Outreach Program is a community-centered initiative led by the College of Computing and 
-                  Information Sciences. It aims to extend the college's knowledge, skills, and services beyond the campus by engaging...
+                  The CCIS Off-Campus Outreach Program is a community-centered
+                  initiative led by the College of Computing and Information
+                  Sciences. It aims to extend the college's knowledge, skills,
+                  and services beyond the campus by engaging...
                 </p>
                 <div className="flex gap-4">
                   <button className="bg-green-800 text-white py-2 px-4 rounded-md hover:bg-green-700 w-full">
@@ -215,13 +265,17 @@ const AccountManagementPage = () => {
 
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-white p-4 rounded-md shadow-sm">
-                  <h2 className="text-xl font-medium text-green-800 mb-4 text-center">Generate Curriculum Vitae</h2>
+                  <h2 className="text-xl font-medium text-green-800 mb-4 text-center">
+                    Generate Curriculum Vitae
+                  </h2>
                   <button className="bg-green-800 text-white py-2 px-4 rounded-md hover:bg-green-700 w-full">
                     Generate
                   </button>
                 </div>
                 <div className="bg-white p-4 rounded-md shadow-sm">
-                  <h2 className="text-xl font-medium text-green-800 mb-4 text-center">Generate Report</h2>
+                  <h2 className="text-xl font-medium text-green-800 mb-4 text-center">
+                    Generate Report
+                  </h2>
                   <button className="bg-green-800 text-white py-2 px-4 rounded-md hover:bg-green-700 w-full">
                     Generate
                   </button>
@@ -230,7 +284,7 @@ const AccountManagementPage = () => {
             </div>
           </div>
         </div>
-      </div>  
+      </div>
     </div>
   );
 };
