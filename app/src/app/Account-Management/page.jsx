@@ -22,26 +22,27 @@ const AccountManagementPage = () => {
   return (
     <div className="containers flex h-screen bg-white">
       <div className="leftContainer">
+        {/* Side Bar */}
         <div className="sideBar">
           <img src="./Images/CCIS.png" alt="CCIS Logo" className="logo" />
-          <Link href="/Admin-Homepage">
-            <div className="homeIcon">
-              <House color="#ffffff" strokeWidth={2} />
-            </div>
-          </Link>
-          <Link href="/Account-Management">
-            <div className="complianceIcon">
-              <UserRound color="#ffffff" strokeWidth={2} />
-            </div>
-          </Link>
-          <div className="analyticsIcon">
-            <ListCheck color="#ffffff" strokeWidth={2} />
-          </div>
-          <Link href="Admin-Settings">
-          <div className="settingsIcon">
-            <Cog color="#ffffff" strokeWidth={2} />
-          </div>
-          </Link>
+            <Link href="/Admin-Homepage">
+              <div className=" p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
+                <House color="#ffffff" strokeWidth={2} />
+              </div>
+            </Link>
+            <Link href="/Account-Management">
+              <div className=" p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
+                <UserRound color="#ffffff" strokeWidth={2} />
+              </div>
+            </Link>
+            <Link rel="stylesheet" href="/Admin-Submission-Review">
+              <div className=" p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
+                <ListCheck color="#ffffff" strokeWidth={2} />
+              </div>
+            </Link>
+            <div className=" p-2 hover:bg-green-700 rounded-md cursor-pointer">
+              <Cog color="#ffffff" strokeWidth={2} />
+            </div>{" "}
         </div>
       </div>
 
@@ -55,8 +56,19 @@ const AccountManagementPage = () => {
                 className="text-green-800 pl-10 pr-4 py-2 border rounded-md w-full focus:outline-none focus:ring-1 focus:ring-green-800"
               />
               <div className="absolute left-3 top-2.5">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
                 </svg>
               </div>
             </div>
@@ -76,7 +88,9 @@ const AccountManagementPage = () => {
               {showNotifications && (
                 <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg z-20 border border-gray-200">
                   <div className="p-3 border-b border-gray-200 flex justify-between items-center">
-                    <h3 className="font-semibold text-green-800">Notifications</h3>
+                    <h3 className="font-semibold text-green-800">
+                      Notifications
+                    </h3>
                     <button
                       className="text-gray-500 hover:text-gray-700"
                       onClick={(e) => {
@@ -92,19 +106,27 @@ const AccountManagementPage = () => {
                       notifications.map((notification) => (
                         <div
                           key={notification.id}
-                          className={`p-3 border-b border-gray-100 hover:bg-gray-50 ${!notification.isRead ? "bg-green-50" : ""}`}
+                          className={`p-3 border-b border-gray-100 hover:bg-gray-50 ${
+                            !notification.isRead ? "bg-green-50" : ""
+                          }`}
                         >
                           <div className="flex justify-between">
-                            <p className="text-sm text-green-800 font-medium">{notification.message}</p>
+                            <p className="text-sm text-green-800 font-medium">
+                              {notification.message}
+                            </p>
                             {!notification.isRead && (
                               <span className="h-2 w-2 bg-green-600 rounded-full"></span>
                             )}
                           </div>
-                          <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
+                          <p className="text-xs text-gray-500 mt-1">
+                            {notification.time}
+                          </p>
                         </div>
                       ))
                     ) : (
-                      <div className="p-4 text-center text-gray-500">No notifications</div>
+                      <div className="p-4 text-center text-gray-500">
+                        No notifications
+                      </div>
                     )}
                   </div>
                   <div className="p-2 text-center border-t border-gray-200">
@@ -125,7 +147,9 @@ const AccountManagementPage = () => {
 
         {/* Main Content */}
         <div className="p-6">
-          <h2 className="text-2xl font-bold text-green-800 mb-6 text-center">Account Management</h2>
+          <h2 className="text-2xl font-bold text-green-800 mb-6 text-center">
+            Account Management
+          </h2>
 
           <div className="bg-white p-6 rounded-lg shadow">
             <div className="flex items-center justify-between mb-6">
@@ -150,21 +174,40 @@ const AccountManagementPage = () => {
               <table className="min-w-full">
                 <thead>
                   <tr className="border-b border-gray-200 ">
-                    <th className="py-3 px-4 text-left font-medium text-green-800">Name</th>
-                    <th className="py-3 px-4 text-left font-medium text-green-800">Email Address</th>
-                    <th className="py-3 px-4 text-left font-medium text-green-800">Date Created</th>
-                    <th className="py-3 px-4 text-left font-medium text-green-800">Status</th>
-                    <th className="py-3 px-4 text-left font-medium text-green-800">Actions</th>
+                    <th className="py-3 px-4 text-left font-medium text-green-800">
+                      Name
+                    </th>
+                    <th className="py-3 px-4 text-left font-medium text-green-800">
+                      Email Address
+                    </th>
+                    <th className="py-3 px-4 text-left font-medium text-green-800">
+                      Date Created
+                    </th>
+                    <th className="py-3 px-4 text-left font-medium text-green-800">
+                      Status
+                    </th>
+                    <th className="py-3 px-4 text-left font-medium text-green-800">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {[...Array(8)].map((_, index) => (
-                    <tr key={index} className="border-b border-gray-100 hover:bg-gray-50 text-green-600">
+                    <tr
+                      key={index}
+                      className="border-b border-gray-100 hover:bg-gray-50 text-green-600"
+                    >
                       <td className="py-3 px-4">Juan Dela Cruz</td>
                       <td className="py-3 px-4">JDelaCruz.k1234@umak.edu.ph</td>
                       <td className="py-3 px-4">05/21/2025</td>
                       <td className="py-3 px-4">
-                        <span className={index % 2 === 0 ? "text-green-600" : "text-yellow-600"}>
+                        <span
+                          className={
+                            index % 2 === 0
+                              ? "text-green-600"
+                              : "text-yellow-600"
+                          }
+                        >
                           {index % 2 === 0 ? "Active" : "Pending"}
                         </span>
                       </td>

@@ -271,7 +271,7 @@ const EducationalBackground = () => {
                   name="elementarySchoolName"
                   value={formData.elementarySchoolName}
                   onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded-md focus:text-black focus:outline-none focus:ring-1 focus:ring-green-500"
+                  className="w-full p-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-1 focus:ring-green-500"
                   placeholder="Elementary School"
                 />
               </div>
@@ -284,7 +284,7 @@ const EducationalBackground = () => {
                   name="elementaryAddress"
                   value={formData.elementaryAddress}
                   onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded-md focus:text-black focus:outline-none focus:ring-1 focus:ring-green-500"
+                  className="w-full p-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-1 focus:ring-green-500"
                   placeholder="City, State"
                 />
               </div>
@@ -297,7 +297,7 @@ const EducationalBackground = () => {
                   name="elementaryDateGraduated"
                   value={formData.elementaryDateGraduated}
                   onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded-md focus:text-black focus:outline-none focus:ring-1 focus:ring-green-500"
+                  className="w-full p-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-1 focus:ring-green-500"
                   placeholder="YYYY-MM-DD"
                 />
               </div>
@@ -319,7 +319,7 @@ const EducationalBackground = () => {
                   name="highschoolSchoolName"
                   value={formData.highschoolSchoolName}
                   onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded-md focus:text-black focus:outline-none focus:ring-1 focus:ring-green-500"
+                  className="w-full p-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-1 focus:ring-green-500"
                   placeholder="High School"
                 />
               </div>
@@ -332,7 +332,7 @@ const EducationalBackground = () => {
                   name="highschoolAddress"
                   value={formData.highschoolAddress}
                   onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded-md focus:text-black focus:outline-none focus:ring-1 focus:ring-green-500"
+                  className="w-full p-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-1 focus:ring-green-500"
                   placeholder="City, State"
                 />
               </div>
@@ -345,7 +345,7 @@ const EducationalBackground = () => {
                   name="highschoolDateGraduated"
                   value={formData.highschoolDateGraduated}
                   onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded-md focus:text-black focus:outline-none focus:ring-1 focus:ring-green-500"
+                  className="w-full p-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-1 focus:ring-green-500"
                   placeholder="YYYY-MM-DD"
                 />
               </div>
@@ -365,7 +365,7 @@ const EducationalBackground = () => {
                   name="collegeSchoolName"
                   value={formData.collegeSchoolName}
                   onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded-md focus:text-black focus:outline-none focus:ring-1 focus:ring-green-500"
+                  className="w-full p-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-1 focus:ring-green-500"
                   placeholder="College Name"
                 />
               </div>
@@ -378,7 +378,7 @@ const EducationalBackground = () => {
                   name="collegeAddress"
                   value={formData.collegeAddress}
                   onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded-md focus:text-black focus:outline-none focus:ring-1 focus:ring-green-500"
+                  className="w-full p-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-1 focus:ring-green-500"
                   placeholder="City, State"
                 />
               </div>
@@ -391,7 +391,7 @@ const EducationalBackground = () => {
                   name="collegeDateGraduated"
                   value={formData.collegeDateGraduated}
                   onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded-md focus:text-black focus:outline-none focus:ring-1 focus:ring-green-500"
+                  className="w-full p-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-1 focus:ring-green-500"
                   placeholder="YYYY-MM-DD"
                 />
               </div>
