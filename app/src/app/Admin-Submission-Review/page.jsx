@@ -18,6 +18,8 @@ import {
   XCircle,
   Search,
   Trash,
+  UserRound,
+  ListCheck,
 } from "lucide-react";
 
 const AdminSubmissionReview = () => {
@@ -28,35 +30,35 @@ const AdminSubmissionReview = () => {
   const [facultySubmissions, setFacultySubmissions] = useState([
     {
       id: 1,
-      name: "Juan Dela Cruz",
+      name: "Luwi Caday",
       idNumber: "K12150411",
       email: "elor.k12150411@umak.edu.ph",
       status: "pending",
     },
     {
       id: 2,
-      name: "Maria Santos",
+      name: "Ehrick Lor",
       idNumber: "K12150412",
       email: "santos.k12150412@umak.edu.ph",
       status: "pending",
     },
     {
       id: 3,
-      name: "Pedro Reyes",
+      name: "Andres Boni",
       idNumber: "K12150413",
       email: "reyes.k12150413@umak.edu.ph",
       status: "pending",
     },
     {
       id: 4,
-      name: "Ana Gonzales",
+      name: "Huub Jayson",
       idNumber: "K12150414",
       email: "gonzales.k12150414@umak.edu.ph",
       status: "approved",
     },
     {
       id: 5,
-      name: "Carlos Mendoza",
+      name: "Erik Lore",
       idNumber: "K12150415",
       email: "mendoza.k12150415@umak.edu.ph",
       status: "approved",
@@ -88,26 +90,26 @@ const AdminSubmissionReview = () => {
   ];
 
   const navItems = [
-  { id: "personal", label: "Personal Information", icon: <User size={18} /> },
-  {
-    id: "educational",
-    label: "Educational Background",
-    icon: <BookOpen size={18} />,
-  },
-  { id: "experiences", label: "Experiences", icon: <Briefcase size={18} /> },
-  {
-    id: "licenses",
-    label: "Credentials",
-    icon: <BadgeCheck size={18} />,
-  },
-  {
-    id: "teaching",
-    label: "Teaching Assignments",
-    icon: <ClipboardList size={18} />,
-  },
-  { id: "research", label: "Research Outputs", icon: <FileText size={18} /> },
-  { id: "documents", label: "Documents", icon: <File size={18} /> },
-];
+    { id: "personal", label: "Personal Information", icon: <User size={18} /> },
+    {
+      id: "educational",
+      label: "Educational Background",
+      icon: <BookOpen size={18} />,
+    },
+    { id: "experiences", label: "Experiences", icon: <Briefcase size={18} /> },
+    {
+      id: "licenses",
+      label: "Credentials",
+      icon: <BadgeCheck size={18} />,
+    },
+    {
+      id: "teaching",
+      label: "Teaching Assignments",
+      icon: <ClipboardList size={18} />,
+    },
+    { id: "research", label: "Research Outputs", icon: <FileText size={18} /> },
+    { id: "documents", label: "Documents", icon: <File size={18} /> },
+  ];
 
   const handleApprove = (id) => {
     setFacultySubmissions((prevSubmissions) =>
@@ -155,22 +157,26 @@ const AdminSubmissionReview = () => {
       <div className="w-[4.8rem] bg-[#125e20] flex flex-col items-center py-4">
         <div className="sideBar">
           <img src="./Images/CCIS.png" alt="" className="logo w-10 h-10 mb-6" />
-          <Link href="/Faculty-Homepage">
-            <div className="homeIcon p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
-              <House color="#ffffff" strokeWidth={2} />
-            </div>
-          </Link>
-          <Link href="/Faculty-Compliance">
-            <div className="complianceIcon p-2 bg-green-700 rounded-md cursor-pointer mb-6">
-              <File color="#ffffff" strokeWidth={2} />
-            </div>
-          </Link>
-          <div className="analyticsIcon p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
-            <ChartColumnBig color="#ffffff" strokeWidth={2} />
-          </div>
-          <div className="settingsIcon p-2 hover:bg-green-700 rounded-md cursor-pointer">
-            <Cog color="#ffffff" strokeWidth={2} />
-          </div>
+          <div className="sideBar">
+            <Link href="/Admin-Homepage">
+              <div className=" p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
+                <House color="#ffffff" strokeWidth={2} />
+              </div>
+            </Link>
+            <Link href="/Account-Management">
+              <div className=" p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
+                <UserRound color="#ffffff" strokeWidth={2} />
+              </div>
+            </Link>
+            <Link rel="stylesheet" href="/Admin-Submission-Review">
+              <div className=" p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
+                <ListCheck color="#ffffff" strokeWidth={2} />
+              </div>
+            </Link>
+            <div className=" p-2 hover:bg-green-700 rounded-md cursor-pointer">
+              <Cog color="#ffffff" strokeWidth={2} />
+            </div>{" "}
+          </div>{" "}
         </div>
       </div>
 
