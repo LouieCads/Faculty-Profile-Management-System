@@ -371,7 +371,7 @@ const FacultyForm = () => {
                               name="firstName"
                               value={formData.firstName}
                               onChange={handleChange}
-                              className="w-full border focus:text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                              className="w-full border text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
                             />
                           </div>
                           <div>
@@ -383,7 +383,7 @@ const FacultyForm = () => {
                               name="lastName"
                               value={formData.lastName}
                               onChange={handleChange}
-                              className="w-full border focus:text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                              className="w-full border text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
                             />
                           </div>
                           <div>
@@ -395,7 +395,7 @@ const FacultyForm = () => {
                               name="middleName"
                               value={formData.middleName}
                               onChange={handleChange}
-                              className="w-full border focus:text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                              className="w-full border text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
                             />
                           </div>
                           <div>
@@ -407,7 +407,7 @@ const FacultyForm = () => {
                               name="suffix"
                               value={formData.suffix}
                               onChange={handleChange}
-                              className="w-full border focus:text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                              className="w-full border text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
                             />
                           </div>
                           <div>
@@ -419,7 +419,7 @@ const FacultyForm = () => {
                               name="birthday"
                               value={formData.birthday}
                               onChange={handleChange}
-                              className="w-full border focus:text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                              className="w-full border text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
                               placeholder="YYYY-MM-DD"
                             />
                           </div>
@@ -432,7 +432,7 @@ const FacultyForm = () => {
                               name="civilStatus"
                               value={formData.civilStatus}
                               onChange={handleChange}
-                              className="w-full border focus:text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                              className="w-full border text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
                             />
                           </div>
                           <div>
@@ -444,7 +444,7 @@ const FacultyForm = () => {
                               name="address"
                               value={formData.address}
                               onChange={handleChange}
-                              className="w-full border focus:text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                              className="w-full border text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
                             />
                           </div>
                         </div>

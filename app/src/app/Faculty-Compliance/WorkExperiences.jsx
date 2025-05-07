@@ -235,7 +235,7 @@ const WorkExperiences = () => {
                     name="companyName"
                     value={experience.companyName}
                     onChange={(e) => handleChange(index, e)}
-                    className="w-full p-2 border border-gray-300 rounded-md focus:text-black focus:outline-none focus:ring-1 focus:ring-green-500"
+                    className="w-full p-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-1 focus:ring-green-500"
                     placeholder="Company Name"
                   />
                 </div>
@@ -248,7 +248,7 @@ const WorkExperiences = () => {
                     name="position"
                     value={experience.position}
                     onChange={(e) => handleChange(index, e)}
-                    className="w-full p-2 border border-gray-300 rounded-md focus:text-black focus:outline-none focus:ring-1 focus:ring-green-500"
+                    className="w-full p-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-1 focus:ring-green-500"
                     placeholder="Position Title"
                   />
                 </div>
@@ -261,7 +261,7 @@ const WorkExperiences = () => {
                     name="yearsServed"
                     value={experience.yearsServed}
                     onChange={(e) => handleChange(index, e)}
-                    className="w-full p-2 border border-gray-300 rounded-md focus:text-black focus:outline-none focus:ring-1 focus:ring-green-500"
+                    className="w-full p-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-1 focus:ring-green-500"
                     placeholder="Number of years"
                     min="0"
                   />
