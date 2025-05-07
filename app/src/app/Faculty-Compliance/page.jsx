@@ -30,7 +30,7 @@ import "./facultyCompliance.css";
 
 const FacultyForm = () => {
   const [activeTab, setActiveTab] = useState("personal");
-  const {gitaddress, isConnected } = useAccount();
+  const { address, isConnected } = useAccount();
   const chainId = useChainId();
   const contractAddress = contractAddresses[chainId.toString()]?.[0];
 
@@ -118,26 +118,20 @@ const FacultyForm = () => {
     e.preventDefault();
     try {
       writeContract({
-      address: contractAddress,
-      abi: abi,
-      functionName: "submitPersonalInfo",
-      args: [
-        formData.firstName,
-        formData.middleName,
-        formData.lastName,
-        formData.suffix,
-        formData.birthday,
-        formData.civilStatus,
-        formData.address,
-      ],
-      chainId: chainId,
-    });
-    
-    // Log the transaction hash
-    console.log("Transaction submitted with hash:", hash);
-    
-    // Alert the user with a more useful message
-    alert(`Transaction submitted successfully! Transaction hash: ${hash}`);
+        address: contractAddress,
+        abi: abi,
+        functionName: "submitPersonalInfo",
+        args: [
+          formData.firstName,
+          formData.middleName,
+          formData.lastName,
+          formData.suffix,
+          formData.birthday,
+          formData.civilStatus,
+          formData.address,
+        ],
+        chainId: chainId,
+      });
     } catch (error) {
       console.error("Error submitting form to contract:", error);
       alert(`Error submitting form: ${error.message || error}`);
@@ -147,7 +141,7 @@ const FacultyForm = () => {
   const handleSubmitEducationalBackground = async (e) => {
     e.preventDefault();
     try {
-      await writeContract({
+      writeContract({
         address: contractAddress,
         abi: abi,
         functionName: "submitEducationalBackground",
@@ -276,7 +270,7 @@ const FacultyForm = () => {
                             <label className="block text-sm font-medium text-green-800 mb-1">
                               First Name
                             </label>
-                            <p className="w-full border border-gray-300 text-black rounded-md px-3 py-2 bg-gray-50">
+                            <p className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-50">
                               {personalInfo[0]}
                             </p>
                           </div>
@@ -284,7 +278,7 @@ const FacultyForm = () => {
                             <label className="block text-sm font-medium text-green-800 mb-1">
                               Last Name
                             </label>
-                            <p className="w-full border border-gray-300 text-black rounded-md px-3 py-2 bg-gray-50">
+                            <p className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-50">
                               {personalInfo[2]}
                             </p>
                           </div>
@@ -292,7 +286,7 @@ const FacultyForm = () => {
                             <label className="block text-sm font-medium text-green-800 mb-1">
                               Middle Name
                             </label>
-                            <p className="w-full border border-gray-300 text-black rounded-md px-3 py-2 bg-gray-50">
+                            <p className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-50">
                               {personalInfo[1]}
                             </p>
                           </div>
@@ -300,7 +294,7 @@ const FacultyForm = () => {
                             <label className="block text-sm font-medium text-green-800 mb-1">
                               Suffix
                             </label>
-                            <p className="w-full border border-gray-300 text-black rounded-md px-3 py-2 bg-gray-50">
+                            <p className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-50">
                               {personalInfo[3]}
                             </p>
                           </div>
@@ -308,7 +302,7 @@ const FacultyForm = () => {
                             <label className="block text-sm font-medium text-green-800 mb-1">
                               Birthday
                             </label>
-                            <p className="w-full border border-gray-300 text-black rounded-md px-3 py-2 bg-gray-50">
+                            <p className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-50">
                               {personalInfo[4]}
                             </p>
                           </div>
@@ -316,7 +310,7 @@ const FacultyForm = () => {
                             <label className="block text-sm font-medium text-green-800 mb-1">
                               Civil Status
                             </label>
-                            <p className="w-full border border-gray-300 text-black rounded-md px-3 py-2 bg-gray-50">
+                            <p className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-50">
                               {personalInfo[5]}
                             </p>
                           </div>
@@ -324,7 +318,7 @@ const FacultyForm = () => {
                             <label className="block text-sm font-medium text-green-800 mb-1">
                               Address
                             </label>
-                            <p className="w-full border border-gray-300 text-black rounded-md px-3 py-2 bg-gray-50">
+                            <p className="w-full border border-gray-300 rounded-md px-3 py-2 bg-gray-50">
                               {personalInfo[6]}
                             </p>
                           </div>
@@ -348,7 +342,7 @@ const FacultyForm = () => {
                               name="firstName"
                               value={formData.firstName}
                               onChange={handleChange}
-                              className="w-full border focus:text-black border-gray-300 text-black rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                              className="w-full border focus:text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
                             />
                           </div>
                           <div>
@@ -360,7 +354,7 @@ const FacultyForm = () => {
                               name="lastName"
                               value={formData.lastName}
                               onChange={handleChange}
-                              className="w-full border focus:text-black border-gray-300 text-black rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                              className="w-full border focus:text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
                             />
                           </div>
                           <div>
@@ -372,7 +366,7 @@ const FacultyForm = () => {
                               name="middleName"
                               value={formData.middleName}
                               onChange={handleChange}
-                              className="w-full border focus:text-black border-gray-300 text-black rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                              className="w-full border focus:text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
                             />
                           </div>
                           <div>
@@ -384,7 +378,7 @@ const FacultyForm = () => {
                               name="suffix"
                               value={formData.suffix}
                               onChange={handleChange}
-                              className="w-full border focus:text-black border-gray-300 text-black rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                              className="w-full border focus:text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
                             />
                           </div>
                           <div>
@@ -396,7 +390,7 @@ const FacultyForm = () => {
                               name="birthday"
                               value={formData.birthday}
                               onChange={handleChange}
-                              className="w-full border focus:text-black border-gray-300 text-black rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                              className="w-full border focus:text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
                               placeholder="YYYY-MM-DD"
                             />
                           </div>
@@ -409,7 +403,7 @@ const FacultyForm = () => {
                               name="civilStatus"
                               value={formData.civilStatus}
                               onChange={handleChange}
-                              className="w-full border focus:text-black border-gray-300 text-black rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                              className="w-full border focus:text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
                             />
                           </div>
                           <div>
@@ -421,7 +415,7 @@ const FacultyForm = () => {
                               name="address"
                               value={formData.address}
                               onChange={handleChange}
-                              className="w-full border focus:text-black border-gray-300 text-black rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                              className="w-full border focus:text-black border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
                             />
                           </div>
                         </div>
