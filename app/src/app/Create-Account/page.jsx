@@ -61,9 +61,11 @@ const Page = () => {
           <div className="analyticsIcon">
             <ListCheck color="#ffffff" strokeWidth={2} />
           </div>
+          <Link href="Admin-Settings">
           <div className="settingsIcon">
             <Cog color="#ffffff" strokeWidth={2} />
           </div>
+          </Link>
         </div>
       </div>
 

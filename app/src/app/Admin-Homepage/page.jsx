@@ -1,11 +1,256 @@
 'use client'; // Add this if using Next.js App Router
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { House, UserRound, ListCheck, Cog, X, Clock, Check, Bell } from 'lucide-react';
+import { House, UserRound, ListCheck, Cog, X, Clock, Check, Bell, FileDown } from 'lucide-react';
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
 import "./adminHomepage.css";
+
+// Define PDF styles
+const styles = StyleSheet.create({
+  page: {
+    padding: 30,
+    backgroundColor: '#FFFFFF',
+  },
+  header: {
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#166534', // green-800
+  },
+  subHeader: {
+    fontSize: 12,
+    marginBottom: 5,
+    color: '#4B5563', // gray-600
+  },
+  section: {
+    margin: 10,
+    padding: 10,
+    borderBottom: '1px solid #E5E7EB',
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#166534', // green-800
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+  },
+  column: {
+    flexDirection: 'column',
+    marginBottom: 10,
+  },
+  statsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginVertical: 10,
+  },
+  statsBox: {
+    padding: 10,
+    textAlign: 'center',
+    borderRadius: 5,
+    width: '30%',
+  },
+  statsTitle: {
+    fontSize: 10,
+    color: '#4B5563', // gray-600
+    marginBottom: 5,
+  },
+  statsValue: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#166534', // green-800
+  },
+  tableRow: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E7EB',
+    paddingVertical: 5,
+  },
+  tableHeaderCell: {
+    width: '50%',
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#166534', // green-800
+  },
+  tableCell: {
+    width: '50%',
+    fontSize: 10,
+    color: '#4B5563', // gray-600
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 30,
+    left: 30,
+    right: 30,
+    textAlign: 'center',
+    fontSize: 8,
+    color: '#9CA3AF', // gray-400
+  },
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  logo: {
+    width: 80,
+    height: 80,
+  }
+});
+
+// Create PDF Document component
+const ComplianceReport = () => {
+  // Generate current date
+  const currentDate = new Date().toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
+  // Sample compliance data
+  const complianceData = {
+    disapproved: 3,
+    pending: 3,
+    approved: 2,
+    totalFaculty: 35,
+    submissionsThisWeek: 23,
+    mostCompliantDept: "Computer Science",
+    totalDocuments: 89,
+  };
+
+  // Sample department compliance data
+  const departmentData = [
+    { name: "Computer Science", compliance: "87%", totalDocs: 32 },
+    { name: "Information Technology", compliance: "78%", totalDocs: 28 },
+    { name: "Information Systems", compliance: "65%", totalDocs: 21 },
+    { name: "Data Science", compliance: "52%", totalDocs: 8 },
+  ];
+
+  // Sample recent submissions
+  const recentSubmissions = [
+    { name: 'Dellosa', document: 'diploma.png', status: 'Pending', date: '2025-05-06' },
+    { name: 'Dorin', document: 'diploma.png', status: 'Approved', date: '2025-05-06' },
+    { name: 'Pahayahay', document: 'diploma.png', status: 'Disapproved', date: '2025-05-05' },
+    { name: 'Edgar', document: 'diploma.png', status: 'Pending', date: '2025-05-05' },
+    { name: 'Dela Cruz', document: 'diploma.png', status: 'Approved', date: '2025-05-04' },
+  ];
+
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        {/* Header with logo placeholder */}
+        <View style={styles.logoContainer}>
+          {/* In a real implementation, you'd use an actual logo image */}
+          <View style={{
+            width: 80,
+            height: 80,
+            backgroundColor: '#166534',
+            borderRadius: 40,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <Text style={{ color: 'white', fontSize: 24 }}>CCIS</Text>
+          </View>
+        </View>
+
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Faculty Compliance Report</Text>
+          <Text style={styles.subHeader}>Generated on: {currentDate}</Text>
+        </View>
+
+        {/* Compliance Status Summary */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Compliance Status Overview</Text>
+          <View style={styles.statsRow}>
+            <View style={[styles.statsBox, { backgroundColor: '#FEE2E2' }]}>
+              <Text style={styles.statsTitle}>Disapproved</Text>
+              <Text style={styles.statsValue}>{complianceData.disapproved}</Text>
+            </View>
+            <View style={[styles.statsBox, { backgroundColor: '#FEF3C7' }]}>
+              <Text style={styles.statsTitle}>Pending</Text>
+              <Text style={styles.statsValue}>{complianceData.pending}</Text>
+            </View>
+            <View style={[styles.statsBox, { backgroundColor: '#DCFCE7' }]}>
+              <Text style={styles.statsTitle}>Approved</Text>
+              <Text style={styles.statsValue}>{complianceData.approved}</Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Key Metrics */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Key Metrics</Text>
+          <View style={styles.row}>
+            <Text style={styles.tableHeaderCell}>Total Faculty Members:</Text>
+            <Text style={styles.tableCell}>{complianceData.totalFaculty}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.tableHeaderCell}>Submissions This Week:</Text>
+            <Text style={styles.tableCell}>{complianceData.submissionsThisWeek}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.tableHeaderCell}>Most Compliant Department:</Text>
+            <Text style={styles.tableCell}>{complianceData.mostCompliantDept}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.tableHeaderCell}>Total Documents:</Text>
+            <Text style={styles.tableCell}>{complianceData.totalDocuments}</Text>
+          </View>
+        </View>
+
+        {/* Department Compliance */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Department Compliance</Text>
+          <View style={styles.tableRow}>
+            <Text style={styles.tableHeaderCell}>Department</Text>
+            <Text style={[styles.tableHeaderCell, { width: '25%' }]}>Compliance</Text>
+            <Text style={[styles.tableHeaderCell, { width: '25%' }]}>Total Docs</Text>
+          </View>
+          {departmentData.map((dept, index) => (
+            <View key={index} style={styles.tableRow}>
+              <Text style={[styles.tableCell, { width: '50%' }]}>{dept.name}</Text>
+              <Text style={[styles.tableCell, { width: '25%' }]}>{dept.compliance}</Text>
+              <Text style={[styles.tableCell, { width: '25%' }]}>{dept.totalDocs}</Text>
+            </View>
+          ))}
+        </View>
+
+        {/* Recent Submissions */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Recent Submissions</Text>
+          <View style={styles.tableRow}>
+            <Text style={[styles.tableHeaderCell, { width: '25%' }]}>Name</Text>
+            <Text style={[styles.tableHeaderCell, { width: '30%' }]}>Document</Text>
+            <Text style={[styles.tableHeaderCell, { width: '25%' }]}>Status</Text>
+            <Text style={[styles.tableHeaderCell, { width: '20%' }]}>Date</Text>
+          </View>
+          {recentSubmissions.map((submission, index) => (
+            <View key={index} style={styles.tableRow}>
+              <Text style={[styles.tableCell, { width: '25%' }]}>{submission.name}</Text>
+              <Text style={[styles.tableCell, { width: '30%' }]}>{submission.document}</Text>
+              <Text style={[styles.tableCell, { width: '25%' }]}>{submission.status}</Text>
+              <Text style={[styles.tableCell, { width: '20%' }]}>{submission.date}</Text>
+            </View>
+          ))}
+        </View>
+
+        {/* Footer */}
+        <View style={styles.footer}>
+          <Text>This report is auto-generated by the CCIS Faculty Compliance System</Text>
+          <Text>Report ID: CCIS-FCR-{Date.now().toString().substr(-8)}</Text>
+        </View>
+      </Page>
+    </Document>
+  );
+};
 
 const AdminHomePage = () => {
   const [showNotifications, setShowNotifications] = useState(false);
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
   
   const recentSubmissions = [
     { name: 'Dellosa', document: 'diploma.png' },
@@ -36,6 +281,12 @@ const AdminHomePage = () => {
     setShowNotifications(!showNotifications);
   };
 
+  const handleGenerateReport = () => {
+    setIsGeneratingPDF(true);
+    // In a real application, you might want to do some data fetching here
+    // before generating the PDF
+  };
+
   return (
     <div className="flex h-screen">
       {showNotifications && (
@@ -61,9 +312,11 @@ const AdminHomePage = () => {
           <div className="analyticsIcon">
             <ListCheck color="#ffffff" strokeWidth={2} />
           </div>
+          <Link href="Admin-Settings">
           <div className="settingsIcon">
             <Cog color="#ffffff" strokeWidth={2} />
           </div>
+          </Link>
         </div>
       </div>
       
@@ -222,11 +475,31 @@ const AdminHomePage = () => {
                 </div>
               </div>
 
-              {/* Improved Report Button */}
+              {/* PDF Download Button */}
               <div className="flex justify-center">
-                <button className="bg-green-800 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded-md shadow text-lg flex">
-                  Generate Report
-                </button>
+                {isGeneratingPDF ? (
+                  <PDFDownloadLink 
+                    document={<ComplianceReport />} 
+                    fileName="faculty-compliance-report.pdf"
+                    className="bg-green-800 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded-md shadow text-lg flex items-center space-x-2"
+                  >
+                    {({ blob, url, loading, error }) =>
+                      loading ? 
+                      'Generating PDF...' : 
+                      <div className="flex items-center">
+                        <FileDown className="mr-2" size={20} />
+                        Download Report
+                      </div>
+                    }
+                  </PDFDownloadLink>
+                ) : (
+                  <button 
+                    onClick={handleGenerateReport}
+                    className="bg-green-800 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded-md shadow text-lg flex items-center"
+                  >
+                    Generate Report
+                  </button>
+                )}
               </div>
             </div>
           </div>

@@ -9,10 +9,227 @@ import {
   Bell,
   X,
   Search,
+  FileDown,
+  User,
+  Briefcase,
+  GraduationCap,
+  Award,
 } from "lucide-react";
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Image } from '@react-pdf/renderer';
+
+// Define PDF styles for the CV
+const styles = StyleSheet.create({
+  page: {
+    padding: 30,
+    backgroundColor: '#FFFFFF',
+  },
+  header: {
+    flexDirection: 'row',
+    marginBottom: 30,
+    borderBottomWidth: 1,
+    borderBottomColor: '#166534',
+    paddingBottom: 20,
+  },
+  profileSection: {
+    flex: 1,
+    paddingRight: 20,
+  },
+  profilePhoto: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: '#166534',
+    marginRight: 30,
+  },
+  nameTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#166534',
+  },
+  jobTitle: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: '#166534',
+  },
+  university: {
+    fontSize: 12,
+    color: '#166534',
+  },
+  sectionContainer: {
+    marginBottom: 15,
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#166534',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E7EB',
+    paddingBottom: 5,
+  },
+  educationItem: {
+    marginBottom: 5,
+    fontSize: 12,
+    color: '#374151',
+  },
+  bullet: {
+    fontSize: 12,
+    marginRight: 5,
+    color: '#166534',
+  },
+  bulletItem: {
+    flexDirection: 'row',
+    marginBottom: 5,
+    paddingLeft: 10,
+  },
+  bulletText: {
+    fontSize: 12,
+    flex: 1,
+    color: '#374151',
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 30,
+    left: 30,
+    right: 30,
+    textAlign: 'center',
+    color: '#6B7280',
+    fontSize: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#E5E7EB',
+    paddingTop: 10,
+  },
+  column: {
+    width: '48%',
+    marginRight: '2%',
+  },
+  row: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  }
+});
+
+// Create CV Document component
+const CurriculumVitae = () => {
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        {/* Header with profile information */}
+        <View style={styles.header}>
+          <View style={styles.profilePhoto} />
+          <View style={styles.profileSection}>
+            <Text style={styles.nameTitle}>Jayson Huub Partido</Text>
+            <Text style={styles.jobTitle}>Computer Science Professor</Text>
+            <Text style={styles.university}>University of Makati</Text>
+          </View>
+        </View>
+
+        {/* Main content - two columns */}
+        <View style={styles.row}>
+          {/* Education Column */}
+          <View style={styles.column}>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>Education</Text>
+              <View style={styles.bulletItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.bulletText}>Graduated Elementary at Ateneo De Manila</Text>
+              </View>
+              <View style={styles.bulletItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.bulletText}>Graduated Highschool at UP Diliman</Text>
+              </View>
+              <View style={styles.bulletItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.bulletText}>Graduated College at the University of Makati</Text>
+              </View>
+            </View>
+
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>Other Professions</Text>
+              <View style={styles.bulletItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.bulletText}>Licensed Doctor</Text>
+              </View>
+              <View style={styles.bulletItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.bulletText}>Professional Hacker</Text>
+              </View>
+              <View style={styles.bulletItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.bulletText}>Web Developer Master</Text>
+              </View>
+            </View>
+          </View>
+
+          {/* Certifications Column */}
+          <View style={styles.column}>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>Certifications</Text>
+              <View style={styles.bulletItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.bulletText}>Certificate of Appreciation</Text>
+              </View>
+              <View style={styles.bulletItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.bulletText}>Certificate of Recognition</Text>
+              </View>
+              <View style={styles.bulletItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.bulletText}>Certificate of Registrations</Text>
+              </View>
+            </View>
+
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>Skills</Text>
+              <View style={styles.bulletItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.bulletText}>Programming (Java, Python, JavaScript)</Text>
+              </View>
+              <View style={styles.bulletItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.bulletText}>Database Management</Text>
+              </View>
+              <View style={styles.bulletItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.bulletText}>Web Development</Text>
+              </View>
+              <View style={styles.bulletItem}>
+                <Text style={styles.bullet}>•</Text>
+                <Text style={styles.bulletText}>Machine Learning</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        {/* Work Experience section - full width */}
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Work Experience</Text>
+          <View style={styles.bulletItem}>
+            <Text style={styles.bullet}>•</Text>
+            <Text style={styles.bulletText}>Computer Science Professor at University of Makati (2018-Present)</Text>
+          </View>
+          <View style={styles.bulletItem}>
+            <Text style={styles.bullet}>•</Text>
+            <Text style={styles.bulletText}>Senior Software Developer at Tech Solutions Inc. (2015-2018)</Text>
+          </View>
+          <View style={styles.bulletItem}>
+            <Text style={styles.bullet}>•</Text>
+            <Text style={styles.bulletText}>Research Assistant at National Institute of Technology (2013-2015)</Text>
+          </View>
+        </View>
+
+        {/* Footer */}
+        <View style={styles.footer}>
+          <Text>Generated on {new Date().toLocaleDateString()} by CCIS Faculty Compliance System</Text>
+        </View>
+      </Page>
+    </Document>
+  );
+};
 
 const AccountManagementPage = () => {
   const [showNotifications, setShowNotifications] = useState(false);
+  const [isGeneratingCV, setIsGeneratingCV] = useState(false);
   const [activeNavItem, setActiveNavItem] = useState("home");
 
   const notifications = [
@@ -50,6 +267,11 @@ const AccountManagementPage = () => {
 
   const toggleNotifications = () => {
     setShowNotifications(!showNotifications);
+  };
+
+  const handleGenerateCV = () => {
+    setIsGeneratingCV(true);
+    // In a real application, you might want to fetch faculty data here
   };
 
   return (
@@ -264,14 +486,37 @@ const AccountManagementPage = () => {
               </div>
 
               <div className="grid grid-cols-2 gap-6">
+                {/* CV Generator Card */}
                 <div className="bg-white p-4 rounded-md shadow-sm">
                   <h2 className="text-xl font-medium text-green-800 mb-4 text-center">
                     Generate Curriculum Vitae
                   </h2>
-                  <button className="bg-green-800 text-white py-2 px-4 rounded-md hover:bg-green-700 w-full">
-                    Generate
-                  </button>
+                  {isGeneratingCV ? (
+                    <PDFDownloadLink 
+                      document={<CurriculumVitae />} 
+                      fileName="jayson-huub-partido-cv.pdf"
+                      className="bg-green-800 text-white py-2 px-4 rounded-md hover:bg-green-700 w-full flex justify-center items-center"
+                    >
+                      {({ blob, url, loading, error }) =>
+                        loading ? 
+                        'Generating CV...' : 
+                        <div className="flex items-center">
+                          <FileDown className="mr-2" size={20} />
+                          Download CV
+                        </div>
+                      }
+                    </PDFDownloadLink>
+                  ) : (
+                    <button 
+                      onClick={handleGenerateCV}
+                      className="bg-green-800 text-white py-2 px-4 rounded-md hover:bg-green-700 w-full"
+                    >
+                      Generate
+                    </button>
+                  )}
                 </div>
+                
+                {/* Report Generator Card */}
                 <div className="bg-white p-4 rounded-md shadow-sm">
                   <h2 className="text-xl font-medium text-green-800 mb-4 text-center">
                     Generate Report
