@@ -1,7 +1,10 @@
 "use client";
+// Faculty Compliance
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import EducationalBackground from "./EducationalBackground";
+import WorkExperiences from "./WorkExperiences";
 import TeachingAssignments from "./TeachingAssignments";
 import LicensesAndCertifications from "./LicensesAndCertifications";
 import ResearchOutputs from "./ResearchOutputs";
@@ -13,10 +16,10 @@ import {
   BadgeCheck,
   ClipboardList,
   File,
+  FileText,
   House,
   ChartColumnBig,
   Cog,
-  FileText,
 } from "lucide-react";
 import {
   useAccount,
@@ -26,10 +29,11 @@ import {
 } from "wagmi";
 import { contractAddresses, abi } from "../constants";
 
-import "./facultyCompliance.css";
+// import "./facultyCompliance.css";
 
 const FacultyForm = () => {
   const [activeTab, setActiveTab] = useState("personal");
+  const [activeNavItem, setActiveNavItem] = useState("personal");
   const { address, isConnected } = useAccount();
   const chainId = useChainId();
   const contractAddress = contractAddresses[chainId.toString()]?.[0];
@@ -58,7 +62,11 @@ const FacultyForm = () => {
   });
 
   // Fetch PersonalInfo from the smart contract
-  const { data: personalInfo, isLoading: isPersonalInfoLoading, error: personalInfoError } = useReadContract({
+  const {
+    data: personalInfo,
+    isLoading: isPersonalInfoLoading,
+    error: personalInfoError,
+  } = useReadContract({
     address: contractAddress,
     abi: abi,
     functionName: "getPersonalInfo",
@@ -68,7 +76,8 @@ const FacultyForm = () => {
 
   // Update formData when personalInfo is fetched
   useEffect(() => {
-    if (personalInfo && personalInfo[8]) { // Check if exists == true
+    if (personalInfo && personalInfo[8]) {
+      // Check if exists == true
       setFormData((prev) => ({
         ...prev,
         firstName: personalInfo[0],
@@ -90,20 +99,30 @@ const FacultyForm = () => {
 
   const status = getStatus();
 
-  const { data, isLoading, isSuccess, isError, isPending, writeContract } = useWriteContract({});
+  const { data, isLoading, isSuccess, isError, isPending, writeContract } =
+    useWriteContract({});
 
-  const tabs = [
+  const navItems = [
     { id: "personal", label: "Personal Information", icon: <User size={18} /> },
-    { id: "educational", label: "Educational Background", icon: <BookOpen size={18} /> },
+    {
+      id: "educational",
+      label: "Educational Background",
+      icon: <BookOpen size={18} />,
+    },
     { id: "experiences", label: "Experiences", icon: <Briefcase size={18} /> },
     { id: "licenses", label: "Credentials", icon: <BadgeCheck size={18} /> },
-    { id: "teaching", label: "Teaching Assignments", icon: <ClipboardList size={18} /> },
+    {
+      id: "teaching",
+      label: "Teaching Assignments",
+      icon: <ClipboardList size={18} />,
+    },
     { id: "research", label: "Research Outputs", icon: <FileText size={18} /> },
     { id: "documents", label: "Documents", icon: <File size={18} /> },
   ];
 
   const handleTabChange = (tabId) => {
     setActiveTab(tabId);
+    setActiveNavItem(tabId);
   };
 
   const handleChange = (e) => {
@@ -158,33 +177,37 @@ const FacultyForm = () => {
         ],
         chainId: chainId,
       });
-      alert("Educational Background submitted successfully!");
     } catch (error) {
-      console.error("Error submitting educational background to contract:", error);
-      alert(`Error submitting educational background: ${error.message || error}`);
+      console.error(
+        "Error submitting educational background to contract:",
+        error
+      );
+      alert(
+        `Error submitting educational background: ${error.message || error}`
+      );
     }
   };
 
   return (
     <div className="flex h-screen bg-gray-100">
-      {/* Left Sidebar */}
+      {/* Side Navbar */}
       <div className="w-[4.8rem] bg-[#125e20] flex flex-col items-center py-4">
         <div className="sideBar">
-          <img src="./Images/CCIS.png" alt="" className="logo" />
+          <img src="./Images/CCIS.png" alt="" className="logo w-10 h-10 mb-6" />
           <Link href="/Faculty-Homepage">
-            <div className="homeIcon">
+            <div className="homeIcon p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
               <House color="#ffffff" strokeWidth={2} />
             </div>
           </Link>
           <Link href="/Faculty-Compliance">
-            <div className="complianceIcon">
+            <div className="complianceIcon p-2 bg-green-700 rounded-md cursor-pointer mb-6">
               <File color="#ffffff" strokeWidth={2} />
             </div>
           </Link>
-          <div className="analyticsIcon">
+          <div className="analyticsIcon p-2 hover:bg-green-700 rounded-md cursor-pointer mb-6">
             <ChartColumnBig color="#ffffff" strokeWidth={2} />
           </div>
-          <div className="settingsIcon">
+          <div className="settingsIcon p-2 hover:bg-green-700 rounded-md cursor-pointer">
             <Cog color="#ffffff" strokeWidth={2} />
           </div>
         </div>
@@ -194,7 +217,9 @@ const FacultyForm = () => {
       <div className="flex-1 flex flex-col">
         {/* Top Navigation */}
         <div className="bg-white p-4 shadow-md flex justify-between items-center">
-          <h1 className="text-xl font-semibold text-green-800">Hello Jayson!</h1>
+          <h1 className="text-[#125e20] text-[2.5rem] font-bold ml-2">
+            Good Day!
+          </h1>
           <ConnectButton
             label="Connect"
             accountStatus="address"
@@ -206,21 +231,21 @@ const FacultyForm = () => {
         {/* Conditional Content */}
         {isConnected ? (
           <>
-            {/* Tab Navigation */}
-            <div className="overflow-x-auto bg-white border-b min-w-full">
-              <div className="flex whitespace-nowrap">
-                {tabs.map((tab) => (
+            {/* Top Navigation Bar (Replaced Tab Navigation with this) */}
+            <div className="bg-white border border-green-700 rounded-lg mx-4 mt-4 overflow-x-auto">
+              <div className="flex justify-between px-2 py-2">
+                {navItems.map((item) => (
                   <button
-                    key={tab.id}
-                    onClick={() => handleTabChange(tab.id)}
-                    className={`flex items-center gap-2 px-4 py-2 ${
-                      activeTab === tab.id
-                        ? "bg-green-600 text-white"
-                        : "bg-gray-100 text-gray-700"
+                    key={item.id}
+                    onClick={() => handleTabChange(item.id)}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-[7px] whitespace-nowrap transition-colors ${
+                      activeNavItem === item.id
+                        ? "text-green-100 font-semibold bg-green-700"
+                        : "text-gray-500 hover:text-green-700 hover:bg-green-100"
                     }`}
                   >
-                    {tab.icon}
-                    <span>{tab.label}</span>
+                    {item.icon}
+                    {item.label}
                   </button>
                 ))}
               </div>
@@ -238,12 +263,14 @@ const FacultyForm = () => {
                     {/* Status Display */}
                     <div className="mb-6">
                       <p className="text-sm font-medium text-green-800">
-                        Status: 
+                        Status:
                         <span
                           className={`ml-2 px-2 py-1 rounded ${
-                            status === "Approved" ? "bg-green-100 text-green-800" :
-                            status === "Pending" ? "bg-yellow-100 text-yellow-800" :
-                            "bg-gray-100 text-gray-800"
+                            status === "Approved"
+                              ? "bg-green-100 text-green-800"
+                              : status === "Pending"
+                              ? "bg-yellow-100 text-yellow-800"
+                              : "bg-gray-100 text-gray-800"
                           }`}
                         >
                           {status}
@@ -330,7 +357,9 @@ const FacultyForm = () => {
                     {!personalInfo || !personalInfo[8] || !personalInfo[7] ? (
                       <div>
                         <h3 className="text-lg font-semibold text-green-700 mb-4">
-                          {personalInfo && personalInfo[8] ? "Edit Personal Information" : "Submit Personal Information"}
+                          {personalInfo && personalInfo[8]
+                            ? "Edit Personal Information"
+                            : "Submit Personal Information"}
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div>
@@ -434,33 +463,19 @@ const FacultyForm = () => {
                       </div>
                     ) : (
                       <p className="text-gray-600 mt-4">
-                        Your personal information is approved and cannot be edited.
+                        Your personal information is approved and cannot be
+                        edited.
                       </p>
                     )}
                   </div>
                 )}
 
-                {activeTab === "educational" && (
-                  <div className="p-4 bg-white rounded-lg">
-                    <h2 className="text-xl font-semibold text-green-800 mb-6">
-                      Educational Background
-                    </h2>
-                    {/* ... existing educational background form unchanged ... */}
-                  </div>
-                )}
-
-                {activeTab === "experiences" && (
-                  <div className="p-4 bg-white rounded-lg">
-                    <h2 className="text-xl font-semibold text-green-800 mb-6">
-                      Work Experiences
-                    </h2>
-                    {/* ... existing experiences form unchanged ... */}
-                  </div>
-                )}
-
+                {activeTab === "educational" && <EducationalBackground />}
+                {activeTab === "experiences" && <WorkExperiences />}
                 {activeTab === "licenses" && <LicensesAndCertifications />}
                 {activeTab === "teaching" && <TeachingAssignments />}
                 {activeTab === "research" && <ResearchOutputs />}
+
                 {activeTab === "documents" && (
                   <div>
                     <h2 className="text-xl font-semibold text-green-800 mb-6">
@@ -497,8 +512,8 @@ const FacultyForm = () => {
                 Wallet Not Connected
               </h2>
               <p className="text-gray-600 mb-6">
-                Please connect your wallet to access the faculty compliance forms
-                and submission features.
+                Please connect your wallet to access the faculty compliance
+                forms and submission features.
               </p>
             </div>
           </div>

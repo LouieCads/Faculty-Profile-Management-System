@@ -1,18 +1,18 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import Link from "next/link";
 import "./accountManagement.css";
 import { House, UserRound, ListCheck, Cog, X, Bell, Pencil, Trash2 } from 'lucide-react';
 
-const FacultyHomePage = () => {
+const AccountManagementPage = () => {
   const [showNotifications, setShowNotifications] = useState(false);
 
   const notifications = [
-    { id: 1, message: 'Dellosa submitted diploma.png', time: '5 minutes ago', isRead: false },
-    { id: 2, message: 'Dorin submitted diploma.png', time: '10 minutes ago', isRead: false },
-    { id: 3, message: 'New account created: Althea Reyes', time: '1 hour ago', isRead: true },
-    { id: 4, message: 'Document approved: Juan\'s diploma.png', time: '3 hours ago', isRead: true },
-    { id: 5, message: 'System update completed', time: '1 day ago', isRead: true },
+    { id: 1, message: "Dellosa submitted diploma.png", time: "5 minutes ago", isRead: false },
+    { id: 2, message: "Dorin submitted diploma.png", time: "10 minutes ago", isRead: false },
+    { id: 3, message: "New account created: Althea Reyes", time: "1 hour ago", isRead: true },
+    { id: 4, message: "Document approved: Juan's diploma.png", time: "3 hours ago", isRead: true },
+    { id: 5, message: "System update completed", time: "1 day ago", isRead: true },
   ];
 
   const toggleNotifications = () => {
@@ -20,7 +20,7 @@ const FacultyHomePage = () => {
   };
 
   return (
-    <div className="containers">
+    <div className="containers flex h-screen bg-white">
       <div className="leftContainer">
         <div className="sideBar">
           <img src="./Images/CCIS.png" alt="CCIS Logo" className="logo" />
@@ -43,13 +43,13 @@ const FacultyHomePage = () => {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col">
-        <div className="h-16 border-b px-6 flex items-center justify-between">
+      <div className="flex-1 flex flex-col bg-gray-100">
+        <div className="h-16 border-b px-6 flex items-center justify-between bg-white shadow-sm">
           <div className="flex items-center">
             <div className="relative w-64">
-              <input 
-                type="text" 
-                placeholder="Search..." 
+              <input
+                type="text"
+                placeholder="Search..."
                 className="text-green-800 pl-10 pr-4 py-2 border rounded-md w-full focus:outline-none focus:ring-1 focus:ring-green-800"
               />
               <div className="absolute left-3 top-2.5">
@@ -64,7 +64,7 @@ const FacultyHomePage = () => {
             {/* Notifications */}
             <div className="relative">
               <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></div>
-              <button 
+              <button
                 className="text-gray-600 hover:text-gray-800 relative"
                 onClick={toggleNotifications}
               >
@@ -75,7 +75,7 @@ const FacultyHomePage = () => {
                 <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg z-20 border border-gray-200">
                   <div className="p-3 border-b border-gray-200 flex justify-between items-center">
                     <h3 className="font-semibold text-green-800">Notifications</h3>
-                    <button 
+                    <button
                       className="text-gray-500 hover:text-gray-700"
                       onClick={(e) => {
                         e.stopPropagation();
@@ -88,9 +88,9 @@ const FacultyHomePage = () => {
                   <div className="max-h-96 overflow-y-auto">
                     {notifications.length > 0 ? (
                       notifications.map((notification) => (
-                        <div 
-                          key={notification.id} 
-                          className={`p-3 border-b border-gray-100 hover:bg-gray-50 ${!notification.isRead ? 'bg-green-50' : ''}`}
+                        <div
+                          key={notification.id}
+                          className={`p-3 border-b border-gray-100 hover:bg-gray-50 ${!notification.isRead ? "bg-green-50" : ""}`}
                         >
                           <div className="flex justify-between">
                             <p className="text-sm text-green-800 font-medium">{notification.message}</p>
@@ -121,61 +121,66 @@ const FacultyHomePage = () => {
           </div>
         </div>
 
-        {/* Account Management Section */}
+        {/* Main Content */}
         <div className="p-6">
-          <h2 className="text-2xl font-bold text-green-800 mb-4 flex justify-center">Account Management</h2>
+          <h2 className="text-2xl font-bold text-green-800 mb-6 text-center">Account Management</h2>
 
-          <div className="flex items-center justify-between mb-4">
-            <div className="text-xl font-semibold text-green-900">
-              All users <span className="text-green-700 font-medium">69</span>
+          <div className="bg-white p-6 rounded-lg shadow">
+            <div className="flex items-center justify-between mb-6">
+              <div className="text-lg font-medium text-green-600">
+                All users <span className="text-green-700 ml-2">69</span>
+              </div>
+              <div className="flex space-x-2">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="text-green-600 border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-1 focus:ring-green-800"
+                />
+                <Link href="/Create-Account">
+                  <button className="bg-green-800 text-white px-4 py-2 rounded-md hover:bg-green-700">
+                    Add User
+                  </button>
+                </Link>
+              </div>
             </div>
-            <div className="flex items-center space-x-4 text-green-700">
-              <input
-                type="text"
-                placeholder="Search"
-                className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-700 text-sm"
-              />
-              <button className="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800 text-sm font-medium">
-                Add User
-              </button>
-            </div>
-          </div>
 
-          <div className="overflow-x-auto">
-            <table className="min-w-full bg-white rounded-lg shadow">
-              <thead>
-                <tr className="text-left text-green-800 border-b">
-                  <th className="p-3">Name</th>
-                  <th className="p-3">Email Address</th>
-                  <th className="p-3">Date Created</th>
-                  <th className="p-3">Status</th>
-                  <th className="p-3">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Array(8).fill().map((_, i) => (
-                  <tr key={i} className="border-t hover:bg-gray-50 text-green-600">
-                    <td className="p-3">Juan Dela Cruz</td>
-                    <td className="p-3">JDelaCruz.k1234@umak.edu.ph</td>
-                    <td className="p-3">05/21/2025</td>
-                    <td className="p-3">
-                      <span className={i % 2 === 0 ? 'text-green-600' : 'text-yellow-500'}>
-                        {i % 2 === 0 ? 'Active' : 'Pending'}
-                      </span>
-                    </td>
-                    <td className="p-3 flex space-x-2">
-                    
-                      <button className="text-green-700 hover:text-green-900">
-                        <Pencil />
-                      </button>
-                      <button className="text-red-600 hover:text-red-800">
-                        <Trash2 />
-                      </button>
-                    </td>
+            <div className="overflow-x-auto">
+              <table className="min-w-full">
+                <thead>
+                  <tr className="border-b border-gray-200 ">
+                    <th className="py-3 px-4 text-left font-medium text-green-800">Name</th>
+                    <th className="py-3 px-4 text-left font-medium text-green-800">Email Address</th>
+                    <th className="py-3 px-4 text-left font-medium text-green-800">Date Created</th>
+                    <th className="py-3 px-4 text-left font-medium text-green-800">Status</th>
+                    <th className="py-3 px-4 text-left font-medium text-green-800">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {[...Array(8)].map((_, index) => (
+                    <tr key={index} className="border-b border-gray-100 hover:bg-gray-50 text-green-600">
+                      <td className="py-3 px-4">Juan Dela Cruz</td>
+                      <td className="py-3 px-4">JDelaCruz.k1234@umak.edu.ph</td>
+                      <td className="py-3 px-4">05/21/2025</td>
+                      <td className="py-3 px-4">
+                        <span className={index % 2 === 0 ? "text-green-600" : "text-yellow-600"}>
+                          {index % 2 === 0 ? "Active" : "Pending"}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4">
+                        <div className="flex space-x-2">
+                          <button className="text-green-600 hover:text-green-800">
+                            <Pencil size={18} />
+                          </button>
+                          <button className="text-red-600 hover:text-red-800">
+                            <Trash2 size={18} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -183,4 +188,4 @@ const FacultyHomePage = () => {
   );
 };
 
-export default FacultyHomePage;
+export default AccountManagementPage;
