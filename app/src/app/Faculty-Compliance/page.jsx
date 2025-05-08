@@ -276,11 +276,6 @@ const FacultyForm = () => {
                           {status}
                         </span>
                       </p>
-                      {personalInfoError && (
-                        <p className="text-red-500 text-sm mt-2">
-                          Error fetching data: Profile not submitted
-                        </p>
-                      )}
                       {isPersonalInfoLoading && (
                         <p className="text-gray-500 text-sm mt-2">Loading...</p>
                       )}

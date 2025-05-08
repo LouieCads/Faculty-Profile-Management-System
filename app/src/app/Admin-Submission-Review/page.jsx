@@ -173,9 +173,11 @@ const AdminSubmissionReview = () => {
                 <ListCheck color="#ffffff" strokeWidth={2} />
               </div>
             </Link>
+            <Link href="Admin-Settings">
             <div className=" p-2 hover:bg-green-700 rounded-md cursor-pointer">
               <Cog color="#ffffff" strokeWidth={2} />
-            </div>{" "}
+            </div>
+            </Link>
           </div>{" "}
         </div>
       </div>
@@ -183,7 +185,7 @@ const AdminSubmissionReview = () => {
       <div className="flex-1 flex flex-col">
         <div className="bg-white p-4 shadow-md flex justify-between items-center">
           <h1 className="text-xl font-semibold text-green-800">
-            Hello Jayson!
+            GOOD DAY!
           </h1>
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-green-800 rounded-full"></div>

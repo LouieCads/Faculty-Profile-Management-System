@@ -315,9 +315,11 @@ const AdminHomePage = () => {
                 <ListCheck color="#ffffff" strokeWidth={2} />
               </div>
             </Link>
+            <Link href="Admin-Settings">
             <div className=" p-2 hover:bg-green-700 rounded-md cursor-pointer">
               <Cog color="#ffffff" strokeWidth={2} />
-            </div>{" "}
+            </div>
+            </Link>{" "}
           </div>{" "}
 
         </div>
